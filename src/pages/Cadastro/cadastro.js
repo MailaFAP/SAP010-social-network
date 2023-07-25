@@ -61,10 +61,11 @@ export default () => {
       .then(
         (userCredential) => {
           const user = userCredential.user;
-          window.location.hash = '#feed';
-          //window.location.reload();
           updateProfile(user, {
             displayName: `${usuario}`,
+          })
+            .then(() => {
+              window.location.hash = '#feed'
           });
         },
       )
