@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from './configfirebase.js';
 
 export const posts = async (postagem) => {
@@ -28,3 +28,10 @@ export const deletePost = async (postId) => {
   const idRefPost = doc(db, "posts", postId);
   await deleteDoc(idRefPost);
 }
+
+// editar o post
+export const updatePost = async (postId, newData) => {
+  const postRef = doc(db, 'posts', postId);
+  console.log(postId, newData);
+  await updateDoc(postRef, newData);
+};

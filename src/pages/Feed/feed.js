@@ -1,6 +1,6 @@
 import './feed.css';
 import { userLogout, getUserName, getUserId } from '../../lib/authUser.js';
-import {posts, exibAllPosts, deletePost } from '../../lib/firestore.js';
+import {posts, exibAllPosts, deletePost, updatePost } from '../../lib/firestore.js';
 
 import logocontraplano from '../../img/icon_logo_contraplano.png';
 import perfilicon from '../../img/icons/icones-user1.svg';
@@ -65,7 +65,6 @@ export default () => {
   // Botões
   const btnPost = feedContainer.querySelector('#btn-send-post');
   const btnCleanDelete = feedContainer.querySelector('#btn-clean-delete');
-  const btnEditPost = feedContainer.querySelector('#btn-edit-post');
   const btnLogout = feedContainer.querySelector('#btn-logout');
 
   // montagem de unico post
@@ -94,15 +93,17 @@ export default () => {
       </div>
       <div class='icons'>
           <button type='button' class='icons-post' id='like-Post' data-post-id='${postId}'>
-            <a class='icon-post' id='icons-post'><img alt='like icon' class='icon' src="${likeicon}"/></a> 
+            <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' src="${likeicon}"/></a> 
           </button>
-          <button class="btn-post" id="btn-edit-post" data-remove="postId"><img alt='edit icon' class='icon' src="${editicon}"></button>
+          <button class="btn-post" 
+          id="btn-edit-post" 
+          data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' src="${editicon}"></button>
           <button class="btn-post" 
             id="btn-delete-post" 
             data-post-id='${postId}' data-user-id='${uidUser}'><img alt='delete icon' class='icon' src="${deleteicon}"></button>
       </div>
     </section>`;
-
+//colocar um "if / else" apenas para o usuário que oostou (operador ternario)
     return postElement;
   };
 
@@ -110,12 +111,15 @@ export default () => {
   const inicioPosts = () => {
     exibAllPosts()
       .then((listaPosts) => {
-        // limpar a lista de posts antes atualizar
-        listPosts.innerHTML = '';  
-        // adicionar os posts na ordem inversa, para ordenação mais recente
+        listPosts.innerHTML = ''; // Limpar a lista de posts antes de atualizar
         for (let i = listaPosts.length - 1; i >= 0; i--) {
-          console.log(listaPosts[i]);
-          const itemPost = createPostElement(listaPosts[i].nameUser, listaPosts[i].date, listaPosts[i].textPost, listaPosts[i].id, listaPosts[i].uidUser)
+          const itemPost = createPostElement(
+            listaPosts[i].nameUser,
+            listaPosts[i].date,
+            listaPosts[i].textPost,
+            listaPosts[i].id,
+            listaPosts[i].uidUser
+          );
           listPosts.appendChild(itemPost);
         }
         listPosts.style.maxHeight = `${listPosts.offsetHeight - window.innerHeight}px`
@@ -123,7 +127,7 @@ export default () => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   // limpar area de novo post e escutador de acao
 const clearTextarea = () => {
@@ -163,24 +167,59 @@ btnCleanDelete.addEventListener('click', clearTextarea);
       const uidUser = deleteButton.getAttribute('data-user-id');
       console.log(getUserId(), uidUser);
       if (uidUser === getUserId()){
-        if (window.confirm('Quer excluir a publicação?')) {
+        if (window.confirm('Eita! Quer excluir sua publicação?')) {
           deletePost(postId)
             .then(() => {
               target.closest('.post-container').remove();
               alert('Post excluído!');
             })
             .catch((error) => {
-              alert('Erro ao excluir o post.', error);
+              alert('Erro ao excluir o post, tente novamente.', error);
             });
         }
       } else{
-        alert('Você não pode deletar esse post!')
+        alert('Nã-nã-não! Você não pode deletar esse post!')
       }
-
     }
   };
 
   listPosts.addEventListener('click', handlePostListClick);
+
+// EDIT POST: editar comentário feito pelo próprio usuário
+const editPostListClick = (event) => {
+  const target = event.target;
+  const btnEditPost = target.closest('#btn-edit-post');
+  if (btnEditPost) {
+    const postId = btnEditPost.getAttribute('data-post-id');
+    const uidUser = btnEditPost.getAttribute('data-user-id');
+    const postElement = btnEditPost.closest('.post-container');
+    const textPostElement = postElement.querySelector('.textPost');
+    const originalText = textPostElement.textContent;
+    if (uidUser === getUserId()){
+      const newText = prompt('Quer editar? Bora lá... Altere o texto da sua postagem:', originalText);
+      if (newText !== null && newText.trim() !== '') {
+        updatePost(postId, { textPost: newText })
+          .then(() => {
+            textPostElement.textContent = newText;
+            alert('Eba! Seu post foi editado!');
+          })
+          .catch((error) => {
+            alert('Ops, deu ruim! Erro ao editar o post, tente novamente.');
+            console.error(error); 
+            textPostElement.textContent = originalText;  //trazer texto original se não alterado
+          });
+      } else if (newText === '') {
+        alert('Ai não rola! O post não pode estar vazio.');
+      }
+    } else{
+      alert('Alto lá! Você não pode alterar esse post!')
+    }
+  }
+};
+
+listPosts.addEventListener('click', editPostListClick);
+
+
 
   // botão função de logout
   btnLogout.addEventListener('click', () => {
