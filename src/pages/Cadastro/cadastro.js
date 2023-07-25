@@ -2,6 +2,14 @@ import { cadastroUsuarioSenha } from '../../lib/authUser.js';
 import {updateProfile} from 'firebase/auth';
 
 export default () => {
+  const oldStyles = document.getElementsByTagName("link");
+  if(oldStyles.length > 1) oldStyles[1].remove();
+  const stylesheet = document.createElement('link');
+  stylesheet.setAttribute('rel', 'stylesheet');
+  stylesheet.setAttribute('type', 'text/css');
+  stylesheet.setAttribute('href','pages/Cadastro/cadastro.css');
+  document.head.appendChild(stylesheet);
+
   const cadastroContainer = document.createElement('div');
   const templateCadastro = `<div id="loginBackground"></div><div> 
   <header>
@@ -12,18 +20,34 @@ export default () => {
   </div>
     <form action="">
       <fieldset>
-        <legend>Cadastre-se</legend>      
+        <legend>Cadastre-se</legend>
         <div>
-          <label for="usuario">Usuário</label>
+          <label for="nome" id="nomeLabel" class="inputLabel">
+          <span><span></span></span>
+          <p>Nome</p>
+          <input type="text" class="nome" id="nome">
+          </label>
+        </div>
+        <div>
+          <label for="usuario" id="usuarioLabel" class="inputLabel">
+          <span><span></span></span>
+          <p>Usuário</p>
           <input type="text" class="usuario" id="usuario">
+          </label>
         </div>
         <div>
-          <label for="email">Email</label>
-          <input type="email" class="email" id="email">
+        <label for="email" id="emailLabel" class="inputLabel">
+          <span><span></span></span>
+          <p>Email</p>
+          <input type="text" name="email" class="email" id="email">
+        </label>
         </div>
         <div>
-          <label for="senha">Senha</label>
+          <label for="senha" id="senhaLabel" class="inputLabel">
+          <span><span></span></span>
+          <p>Senha</p>
           <input type="password" class="senha" id="senha">
+          </label>
         </div>
         <button class="btn" id="btn-cad-voltar">Voltar</button>
         <button class="btn" id="btn-cad-concluir">Concluir cadastro</button>

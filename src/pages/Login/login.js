@@ -1,6 +1,15 @@
-import { loginEmail, loginGoogle } from '../../lib/authUser.js';
+import { loginEmail, loginGoogle } from "../../lib/authUser.js";
+/*<link rel="stylesheet" type="text/css" href="pages/Login/login.css">*/
 
 export default () => {
+  const oldStyles = document.getElementsByTagName("link");
+  if(oldStyles.length > 1) oldStyles[1].remove();
+  const stylesheet = document.createElement('link');
+  stylesheet.setAttribute('rel', 'stylesheet');
+  stylesheet.setAttribute('type', 'text/css');
+  stylesheet.setAttribute('href','pages/Login/login.css');
+  document.head.appendChild(stylesheet);
+
   const loginContainer = document.createElement('div');
   const templateLogin = `<div id="loginBackground"></div><div><header>
   <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
@@ -11,16 +20,16 @@ export default () => {
 <div>
 <fieldset>
   <div>
-    <label for="email" id="emailLabel">
+    <label for="email" id="emailLabel" class="inputLabel">
       <p>E-mail</p>
-      <span></span>
+      <span><span></span></span>
       <input type="text" name="email" class="email" id="email">
     </label>
   </div>
   <div>
-    <label for="senha" id="senhaLabel">
+    <label for="senha" id="senhaLabel" class="inputLabel">
     <p>Senha</p>
-    <span></span>
+    <span><span></span></span>
       <input type="password" name="senha" class="senha" id="senha">
     </label>
   </div>

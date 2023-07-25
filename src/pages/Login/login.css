@@ -1,0 +1,41 @@
+.inputLabel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.inputLabel p {
+  width: 100%;
+}
+
+.inputLabel>span>span {
+  background-size: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px;
+  height: 26px;
+  display: block;
+}
+
+.inputLabel>span {
+  width: 40px;
+  height: 26px;
+  border-radius: 50px;
+}
+
+#emailLabel>span>span {
+  background-image: url("../../img/icons/icones-email.svg");
+}
+
+#emailLabel>span {
+  background-color: #9e4ce0b6;
+}
+
+#senhaLabel>span>span {
+  background-image: url("../../img/icons/icones-password.svg");
+}
+
+#senhaLabel>span {
+  background-color: #e01e1eb6;
+}
