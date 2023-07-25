@@ -35,7 +35,7 @@ export function userAuthCheck(callback) {
 export const getUserName = () => {
   const auth = getAppAuth();
   const user = auth.currentUser;
-  if (user.displayName != null || user.displayName != undefined || user.displayName != '') {
+  if (user.displayName ) {
     return user.displayName;
     //return user.photoURL;
   }

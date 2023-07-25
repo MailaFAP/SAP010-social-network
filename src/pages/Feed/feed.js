@@ -1,6 +1,6 @@
 import './feed.css';
 import { userLogout, getUserName } from '../../lib/authUser.js';
-import {posts, exibAllPosts } from '../../lib/firestore.js';
+import { posts, exibAllPosts, deletePost } from '../../lib/firestore.js';
 
 import deleteicon from '../../img/icons/icones-delete.svg';
 
@@ -57,7 +57,12 @@ export default () => {
   ) => {
     const createdAtDate = new Date(date);
     const createdAtFormattedDate = createdAtDate.toLocaleDateString('pt-BR');
-    const createdAtFormatted = `${createdAtFormattedDate}`;
+    const createdAtFormattedTime = createdAtDate.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    const createdAtFormatted = `${createdAtFormattedDate} ~ ${createdAtFormattedTime}`;
     const postElement = document.createElement('div');
     postElement.innerHTML = `
     <section class="post-container">
@@ -82,41 +87,76 @@ export default () => {
   const inicioPosts = () => {
     exibAllPosts()
       .then((listaPosts) => {
-        for(let i = 0; i < listaPosts.length; i++){
-        const itemPost = createPostElement(listaPosts[i].nameUser, listaPosts[i].date, listaPosts[i].textPost, listaPosts[i].postId)
-        listPosts.appendChild(itemPost);
-        } 
+        for (let i = 0; i < listaPosts.length; i++) {
+          const itemPost = createPostElement(listaPosts[i].nameUser, listaPosts[i].date, listaPosts[i].textPost, listaPosts[i].id)
+          listPosts.appendChild(itemPost);
+        }
       }).catch((error) => {
-      console.log(error);
-    });
+        console.log(error);
+      });
   }
-  
+
   inicioPosts();
 
   //ADD NOVO POST: fazer postagem nova direto do app/web
-  btnPost.addEventListener('click', () =>{
+  btnPost.addEventListener('click' , () => {
     const textoPostagem = textoMensagemEntrada.value;
-
-    if(!textoPostagem){
+    if (!textoPostagem) {
       //ajustar alerts
       alert('preencha a mensagem antes de enviar.')
       console.log('mensagem não digitada');
-    } else{
+    } else {
       posts(textoPostagem)
-      .then(() => {
-        textoMensagem.value = '';
-        alert('Comentário publicado!')
-        //location.reload();
-        //recarregar a pagina
-      })
-      .catch((error) => {
-        alert('Ocorreu um erro na publicação. Tente novamente.')
-        console.log(error);
-    });
-    }
-  })
+        .then((document) => {
+          textoMensagem.value = '';
+          alert('Comentário publicado!');    
+          let itemPost = createPostElement(document.nameUser, document.date, document.textPost, document.id)
+          listPosts.insertBefore(itemPost, listPosts.firstChild);
+          //recarregar a pagina
+        })
+        .catch((error) => {
+          alert('Ocorreu um erro na publicação. Tente novamente.');
+          console.log(error);
+        })
+    };
+  });
+
+  
 
   //DELETAR POST: selecionar e deletar comentário feito pelo proprio usuário
+  /*btnDeletePost.addEventListener('click', delet);
+
+  async function delet(event) {
+    const target = event.target;
+    const deleteButton = target.closest('#btn-delete');
+    const postId = deleteButton.getAttribute('data-post-id');
+    if (window.confirm('Tem certeza de que deseja excluir a publicação?')) {
+      try {
+        await deletePost(postId);
+        target.closest('.post-container').removeChild();
+        alert('Publicação excluída com sucesso!');
+      } catch (error) {
+        alert('Ocorreu um erro ao excluir o post. Por favor, tente novamente mais tarde', error);
+      }
+    }
+  }
+
+  btnDeletePost.addEventListener('click', delet);
+  const delet = (event) => {
+    const target = event.target;
+    const deleteButton = target.closest('#btn-delete');
+    const postId = deleteButton.getAttribute('data-post-id');
+    if (window.confirm('Tem certeza de que deseja excluir a publicação?')) {
+      deletePost(postId)
+        .then(() => {
+          target.closest('.post-container').removechild();
+          alert('Publicação excluída com sucesso!');
+        })
+        .catch((error) => {
+          alert('Ocorreu um erro ao excluir o post. Por favor, tente novamente mais tarde', error);
+        });
+    };
+  };*/
 
   // botão função de logout
   btnLogout.addEventListener('click', () => {
@@ -128,6 +168,7 @@ export default () => {
       });
   });
 
+  
   return feedContainer;
 
 };
