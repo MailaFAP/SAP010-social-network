@@ -97,3 +97,8 @@ header section {
 .visible {
   display: block;
 }
+
+#btn-new-comment-area{
+  background-color: #5FEA4B;
+  width: 5vh;
+}
