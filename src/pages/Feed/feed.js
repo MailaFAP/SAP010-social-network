@@ -9,7 +9,7 @@ import newposticon from '../../img/icons/icones-send.svg';
 import logouticon from '../../img/icons/icones-logout.svg';
 import likeicon from '../../img/icons/icones-like2.svg';
 import editicon from '../../img/icons/icones-edit.svg';
-import deleteicon from '../../img/icons/icones-delete.svg';;
+import deleteicon from '../../img/icons/icones-delete.svg';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
@@ -30,21 +30,21 @@ export default () => {
         <p>Olá, ${getUserName()}! Vamos comentar sobre filmes e séries?</p>
       </div>
   <section>
-    <button class="btn-perfil" id="btn-perfil"><img class="icon" src="${perfilicon}"></button>
-    <button class="btn-logout" id="btn-logout"><img class="icon" src="${logouticon}"></button>
+    <button class="btn-perfil" id="btn-perfil"><img class="icon" title="Perfil" src="${perfilicon}"></button>
+    <button class="btn-logout" id="btn-logout"><img class="icon" title="Log Out" src="${logouticon}"></button>
   </section>
   </header>
   <section class="inicioFeed">
   </section>
   <div id="new-comment">
   <button class="btn-post" id="btn-new-comment-area">
-    <img class="icon" alt='new comment area icon' src="${commentarea}">
+    <img class="icon" id="new-comment-icon" alt='new comment area icon' title="Criar novo post" src="${commentarea}">
   </button>
   </div>
   <div id="postagens" class="hidden">
-    <textarea class="inputMensagem" id="textoMensagem" placeholder="Ei, me conta o que você tem assistido..." rows="8" cols="40"></textarea>
-    <button class="btn-delete" id="btn-clean-delete"><img class="icon" alt='clean area icon' src="${deleteicon}"></button>
-    <button class="btn-post" id="btn-send-post"><img class="icon" alt='new post icon' src="${newposticon}"></button>
+    <textarea class="inputMensagem" id="textoMensagem" placeholder="Ei, me conta o que você tem assistido..." rows="8" cols="45"></textarea>
+    <button class="btn-delete" id="btn-clean-delete"><img class="icon" alt='clean area icon' title="Limpar área de texto" src="${deleteicon}"></button>
+    <button class="btn-post" id="btn-send-post"><img class="icon" alt='new post icon' title="Publicar novo post" src="${newposticon}"></button>
     <div id="mensagemErro" class="error"></div>
   </div>
     <section id="listPosts" class="posts">
@@ -67,7 +67,6 @@ export default () => {
   const btnCleanDelete = feedContainer.querySelector('#btn-clean-delete');
   const btnLogout = feedContainer.querySelector('#btn-logout');
 
-  // montagem de unico post
   const createPostElement = (
     nameUser,
     date,
@@ -93,19 +92,21 @@ export default () => {
       </div>
       <div class='icons'>
           <button type='button' class='icons-post' id='like-Post' data-post-id='${postId}'>
-            <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' src="${likeicon}"/></a> 
+            <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' title="Like" src="${likeicon}"/></a> 
           </button>
+          ${uidUser === getUserId() ? `
           <button class="btn-post" 
           id="btn-edit-post" 
-          data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' src="${editicon}"></button>
+          data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' title="Editar publicação" src="${editicon}"></button>
           <button class="btn-post" 
             id="btn-delete-post" 
-            data-post-id='${postId}' data-user-id='${uidUser}'><img alt='delete icon' class='icon' src="${deleteicon}"></button>
+            data-post-id='${postId}' data-user-id='${uidUser}'><img alt='delete icon' class='icon' title="Deletar publicação" src="${deleteicon}"></button>` : ''}
       </div>
     </section>`;
-//colocar um "if / else" apenas para o usuário que oostou (operador ternario)
+    //usado o operador ternario (condition ? expr1 : expr2)
     return postElement;
   };
+  
 
   //lista de publicações aqui
   const inicioPosts = () => {
@@ -219,6 +220,8 @@ const editPostListClick = (event) => {
 };
 
 listPosts.addEventListener('click', editPostListClick);
+
+// LIKE EM POSTS: dar likes em publicações
 
 
 

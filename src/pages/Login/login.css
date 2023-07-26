@@ -24,18 +24,61 @@
   border-radius: 50px;
 }
 
-#emailLabel>span>span {
+/* #emailLabel>span>span {
   background-image: url("../../img/icons/icones-email.svg");
-}
+} */
 
 #emailLabel>span {
   background-color: #9e4ce0b6;
 }
-
+/* 
 #senhaLabel>span>span {
   background-image: url("../../img/icons/icones-password.svg");
-}
+} */
 
 #senhaLabel>span {
   background-color: #e01e1eb6;
 }
+
+input::placeholder{
+  color: #8b8585;
+  font-style: italic;
+  font-size: smaller;
+}
+
+#btn-login-google{
+  align-items: center;
+  vertical-align: middle;
+}
+
+.icons-login-cadastro{
+  width: 30px;
+}
+
+input{
+  background-color: #243645ba;
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+  padding: 8px;
+}
+
+#input-login-cadastro{
+  align-items: center;
+  width: 24px;
+  height: auto;
+  vertical-align: middle;
+}
+
+#btn-login-google{
+  
+}
+
+/* .error-bar {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+} */

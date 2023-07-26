@@ -29,7 +29,7 @@ textarea::placeholder{
 button{
   border: none;
   background-color: #64008e ;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 5px;
 }
 
@@ -42,6 +42,7 @@ button{
   display: flex;
   flex-flow: column;
   height: 100%;
+  
 }
 
 .posts {
@@ -86,8 +87,8 @@ header section {
 
 /* Botão novo comentário */
 #new-comment{
-  margin: 10px;
   display: flex;
+  padding: 10px;
 }
 
 .hidden {
@@ -98,7 +99,9 @@ header section {
   display: block;
 }
 
-#btn-new-comment-area{
-  background-color: #5FEA4B;
-  width: 5vh;
+#new-comment-icon{
+  width: 55px;
+  background: #5FEA4B;
+  padding: 15px;
+  border-radius: 15px;
 }

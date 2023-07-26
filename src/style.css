@@ -1,69 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=REM:wght@100;200;300;400;500;600;700&display=swap');
+
 * {
+    font-family: 'REM', sans-serif;
     box-sizing: border-box;
 }
 
-html{
-width: 100%;
-height: 100%;
-color:#96A7AF;
-background-color: #243645;
+html {
+    width: 100%;
+    height: 100%;
+    color: #96A7AF;
+    background-color: #243645;
 }
 
-body{
-text-align: center;
-margin: 0%;
-max-width: 100%;
-max-height: 100%;
-justify-content: center;
+body {
+    text-align: center;
+    margin: 0%;
+    max-width: 100%;
+    max-height: 100%;
+    justify-content: center;
 }
 
-header{
-width: 100%;
-text-align: center;
-justify-content: center;
+header {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 }
 
-.logo{
-max-width: 200px;
+.logo {
+    max-width: 200px;
 }
 
-fieldset{
+fieldset {
     border: none;
 }
 
-.btn{
-cursor: pointer;
-background-color: #5FEA4B;
-color:white;
-border:none;
-border-radius: 10px;
-max-width: 300px;
-width: 100%;
-padding: 20px;
-margin: 5px 0;
+.btn {
+    cursor: pointer;
+    background-color: #5FEA4B;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 100%;
+    padding: 20px;
+    margin: 5px 0;
 }
 
-.btn-escuro{
+.btn-escuro {
     background-color: #317e25d5;
 }
 
-.btn-transparente{
-background-color: transparent;
+.btn-transparente {
+    background-color: transparent;
 }
 
-#login{
+#login {
     width: 100vw;
     height: 100vh;
     display: flex;
     overflow: hidden;
 }
 
-#login > div::before, #login > div::after {
+#login>div::before,
+#login>div::after {
     content: '';
     margin: auto;
 }
 
-#login > div{
+#login>div {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -71,27 +75,32 @@ background-color: transparent;
     overflow-y: scroll;
 }
 
-#login > div::-webkit-scrollbar{
+#login>div::-webkit-scrollbar {
     display: none;
 }
 
-#loginBackground{
+#loginBackground {
     background-image: url("./img/login_background.png");
     background-size: cover;
     background-position: center;
 }
 
-@media screen and (max-width: 800px){
-#login{
-    flex-wrap: wrap;
-}
-#login > div:first-child{
-    display: none;
-}
+@media screen and (max-width: 800px) {
+    #login {
+        flex-wrap: wrap;
+    }
+
+    #login>div:first-child {
+        display: none;
+    }
 }
 
-#email,#senha,#nome,#usuario, input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+#email,
+#senha,
+#nome,
+#usuario,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     background: transparent;
     max-width: 300px;
@@ -105,9 +114,9 @@ input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s;
 }
 
-#errorMessage{
-color:#F68D10;
-font-size: 20px;
+#errorMessage {
+    color: #F68D10;
+    font-size: 20px;
 }
 
 ul {

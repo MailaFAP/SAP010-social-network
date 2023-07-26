@@ -1,5 +1,10 @@
+import './cadastro.css';
 import { cadastroUsuarioSenha } from '../../lib/authUser.js';
 import {updateProfile} from 'firebase/auth';
+
+import usericon from '../../img/icons/icones-user1.svg';
+import emailicon from '../../img/icons/icones-email.svg';
+import passwordicon from '../../img/icons/icones-password.svg';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
@@ -21,32 +26,26 @@ export default () => {
     <form action="">
       <fieldset>
         <legend>Cadastre-se</legend>
-        <div>
-          <label for="nome" id="nomeLabel" class="inputLabel">
-          <span><span></span></span>
-          <p>Nome</p>
-          <input type="text" class="nome" id="nome">
-          </label>
-        </div>
-        <div>
+        <div class="input-login-cadastro">
           <label for="usuario" id="usuarioLabel" class="inputLabel">
-          <span><span></span></span>
-          <p>Usuário</p>
-          <input type="text" class="usuario" id="usuario">
+            <p>Usuário</p>
+            <br>
+            <img class="icons-login-cadastro" src="${usericon}" alt="user Icon">
+            <input type="text" class="usuario" id="usuario" placeholder="ex.: Usuário">
           </label>
         </div>
-        <div>
+        <div class="input-login-cadastro">
         <label for="email" id="emailLabel" class="inputLabel">
-          <span><span></span></span>
           <p>Email</p>
-          <input type="text" name="email" class="email" id="email">
+          <img class="icons-login-cadastro" src="${emailicon}" alt="Email Icon">
+          <input type="text" name="email" class="email" id="email" placeholder="ex.: email@email.com">
         </label>
         </div>
-        <div>
+        <div class="input-login-cadastro">
           <label for="senha" id="senhaLabel" class="inputLabel">
-          <span><span></span></span>
           <p>Senha</p>
-          <input type="password" class="senha" id="senha">
+          <img class="icons-login-cadastro" src="${passwordicon}" alt="Password Icon">
+          <input type="password" class="senha" id="senha" placeholder="ex.: xxxxxx (min. 6 dígitos)">
           </label>
         </div>
         <button class="btn" id="btn-cad-voltar">Voltar</button>

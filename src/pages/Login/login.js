@@ -1,5 +1,9 @@
+import './login.css';
 import { loginEmail, loginGoogle } from "../../lib/authUser.js";
-/*<link rel="stylesheet" type="text/css" href="pages/Login/login.css">*/
+
+import googleicon from '../../img/icons/icones-google.svg';
+import emailicon from '../../img/icons/icones-email.svg';
+import passwordicon from '../../img/icons/icones-password.svg';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
@@ -8,44 +12,46 @@ export default () => {
   stylesheet.setAttribute('rel', 'stylesheet');
   stylesheet.setAttribute('type', 'text/css');
   stylesheet.setAttribute('href','pages/Login/login.css');
-  document.head.appendChild(stylesheet);
+  document.head.appendChild(stylesheet); 
 
   const loginContainer = document.createElement('div');
-  const templateLogin = `<div id="loginBackground"></div><div><header>
-  <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
+  const templateLogin = `<div id="loginBackground"></div>
+  <div>
+  <header>
+    <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
 </header>
 <div>
   <h2>Bem vinde a sua rede social de filmes</h2>
+  <p>Login</p>
 </div>
 <div>
 <fieldset>
-  <div>
+  <div class="input-login-cadastro">
     <label for="email" id="emailLabel" class="inputLabel">
       <p>E-mail</p>
-      <span><span></span></span>
-      <input type="text" name="email" class="email" id="email">
+      <img class="icons-login-cadastro" src="${emailicon}" alt="Email Icon">
+      <input type="text" name="email" class="email" id="email" placeholder="ex.: email@email.com">
     </label>
   </div>
-  <div>
+  <div class="input-login-cadastro">
     <label for="senha" id="senhaLabel" class="inputLabel">
     <p>Senha</p>
-    <span><span></span></span>
-      <input type="password" name="senha" class="senha" id="senha">
+    <img class="icons-login-cadastro" src="${passwordicon}" alt="Password Icon">
+    <input type="password" name="senha" class="senha" id="senha" placeholder="ex.: xxxxxx (min. 6 dígitos)">
     </label>
   </div>
   <button class="btn" id="btn-login-entrar">Entrar</button>
   <div id="errorMessage"></div>
   <br>
-  <button class="btn btn-transparente" id="btn-login-esq-senha">Esqueceu a senha?</button>
-  <br>
-  <button class="btn btn-transparente" id="btn-login-google">Login com Google</button>
+  <label for="loginGoogle" id="loginGoogle" class="loginGoogle"></label>
+  <button class="btn btn-transparente" id="btn-login-google">Login com<img alt='google icon' class='icon' src="${googleicon}"></button>
   <br>
   <button class="btn btn-escuro" id="btn-login-criar-conta">Não tem login? Crie sua conta agora</button>
 </fieldset>
 </div>
 <footer>
 <h5>Bootcamp Laboratoria - Projeto Rede Social</h5>
-<h6>Desenvolvido por Larissa,Maila e Vitória</h6>
+<h6>Desenvolvido por Larissa, Maila e Vitória</h6>
 <p>2023</p>
 </footer></div>`;
 
