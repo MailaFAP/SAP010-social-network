@@ -122,7 +122,8 @@ export default () => {
           );
           listPosts.appendChild(itemPost);
         }
-        listPosts.style.maxHeight = `${listPosts.offsetHeight - window.innerHeight}px`
+        const listPostRect = listPosts.getBoundingClientRect();
+        listPosts.style.maxHeight = `${window.innerHeight - listPostRect.y}px`;
       })
       .catch((error) => {
         console.log(error);
