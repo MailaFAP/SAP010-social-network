@@ -1,0 +1,52 @@
+.icon{
+  width: 20px;
+  margin: 5px;
+}
+
+h3{
+  align-items: left;
+}
+
+button{
+  border: none;
+  background-color: #64008e ;
+  border-radius: 15px;
+  padding: 5px;
+  color: #ffffff;
+  margin: 10px;
+}
+
+.user-name-perfil{
+  font-weight: bold;
+  color: #BA19FF;
+}
+
+.logoperfil{
+  width: 60px;
+  margin: 10px;
+  display: flex;
+}
+
+header{
+  display: flex;
+}
+
+
+.headerperfil{
+  display: flex;
+  justify-content:space-between;
+  text-align: center;
+}
+
+header section {
+  padding: 1%;
+}
+
+.image-perfil{
+  width: 120px;
+  border-radius: 20px;
+}
+
+.inicioPerfil{
+  margin: 5px;
+}

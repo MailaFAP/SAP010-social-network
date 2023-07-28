@@ -75,10 +75,43 @@ input{
   
 }
 
-/* .error-bar {
-  background-color: red;
-  color: white;
+/* Notificação */
+
+.notification.success {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5FEA4B;
+  color: #fff;
   padding: 10px;
-  text-align: center;
-  font-weight: bold;
-} */
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
+}
+
+.notification.error {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FF0000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
+}
+
+.notification.attention {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff7700;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
+}

@@ -1,10 +1,17 @@
+/* posts */
 .post-container{
-  background-color: #5FEA4B;
+  background-color: #60ea4bd7;
   border-radius: 25px;
   margin: 15px;
   text-align: left;
   padding: 10px;
   color: #ffffff;
+  width: 80%;
+  display: flexbox;
+}
+
+#listPosts div{
+  align-content: center;
 }
 
 textarea{
@@ -14,6 +21,7 @@ textarea{
   padding: 10px;
   color: #ffffff;
   resize: none;
+  margin: 5px;
 }
 
 textarea::placeholder{
@@ -26,11 +34,18 @@ textarea::placeholder{
   margin: 5px;
 }
 
+/* .icons{
+  display: flex;
+  align-content: center;
+}
+ */
 button{
   border: none;
   background-color: #64008e ;
   border-radius: 15px;
   padding: 5px;
+  color: #ffffff;
+  margin: 10px;
 }
 
 .userName{
@@ -48,7 +63,26 @@ button{
 .posts {
   overflow-y: scroll;
   margin: 10px;
+  align-content: center;
 }
+
+.nameUser{
+  display: inline-flexbox;
+}
+
+.dataPost{
+  font-size: small;
+  text-align: right;
+  margin-right: 1rem;
+  
+}
+
+.textPost{
+  margin-left: 1rem;
+}
+
+
+/**/
 
 *::-webkit-scrollbar {
   width: 10px;
@@ -85,6 +119,14 @@ header section {
   padding: 1%;
 }
 
+footer{
+  padding-bottom: 3px;
+}
+
+footer h6{
+  margin: 10px;
+}
+
 /* Botão novo comentário */
 #new-comment{
   display: flex;
@@ -104,4 +146,51 @@ header section {
   background: #5FEA4B;
   padding: 15px;
   border-radius: 15px;
+}
+
+/* Area de confirmação*/
+.delete-area{
+  font-style: italic;
+  color: #ff7700;
+}
+
+/* Notificação */
+
+.notification.success {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5FEA4B;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
+}
+
+.notification.error {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FF0000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
+}
+
+.notification.attention {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff7700;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  margin: 10px;
 }

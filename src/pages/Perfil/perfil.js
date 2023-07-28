@@ -1,3 +1,14 @@
+import './perfil.css';
+import { userLogout, getUserName } from '../../lib/authUser.js';
+
+import logocontraplano from '../../img/icon_logo_contraplano.png';
+import imageperfil from '../../img/spectator-perfil.png';
+import feedicon from '../../img/icons/icones-feed.svg';
+//import commentarea from '../../img/icons/icones-comment.svg';
+//import newposticon from '../../img/icons/icones-send.svg';
+import logouticon from '../../img/icons/icones-logout.svg';
+
+
 export default () => {
   const stylesheet = document.createElement('link');
   stylesheet.setAttribute('rel', 'stylesheet');
@@ -7,39 +18,53 @@ export default () => {
 
   const perfilContainer = document.createElement('div');
   const templatePerfil = `
-  <header>
-      <picture><img class="logo" src="./img/icon_logo_contraplano.png"></picture>
+  <header class="headerperfil">
+      <picture><img class="logoperfil" src="${logocontraplano}"></picture>
       <div>
-        <img></img>
         <h3> Perfil </h3>
-        <h2> Nome do Usuário </h2>
-        <nav> 
-          <ul>
-            <li>
-              <a href="">Comente um filme</a>
-              <a href="">Feed</a>
-            </li>
-          </ul>
-        </nav>
-
+      </div>
+  <section>
+  <div id="notification" class="notification hidden"></div>
+    <button class="btn-feed" id="btn-feed"><img class="icon" title="Feed" src="${feedicon}"></button>
+    <button class="btn-logout" id="btn-logout"><img class="icon" title="Log Out" src="${logouticon}"></button>
+  </section>
   </header>
   <div>
-      <img></img>
-
+    <picture><img class="image-perfil" id="image-perfil" src="${imageperfil}"></picture>
+    <p class="user-name-perfil">${getUserName()}</p>
   </div>
-  <section class = inicioFeed>
-      <h1> Nome do Usuário </h1>
-      <h2> ”É curioso como as cores do mundo real parecem muito mais reais quando vistas no cinema.” Laranja Mêcanica, 1971 </h2>
-      <h3> Suas postagens publicadas recentemente </h3>
+  <section class="inicioPerfil">
+      <h4> ”É curioso como as cores do mundo real parecem muito mais reais quando vistas no cinema.” Laranja Mêcanica, 1971 </h4>
   </section>
-  <section class = posts>
+  <section>
 
   </section>
   <footer>
-      
-  </footer>`;
+    <h6>Desenvolvido por: Larissa Velace | Maila Ferreira | Vitória Victor</h6>
+    <h6>Bootcamp Laboratoria - Projeto Rede Social - 2023</h6>
+  </footer>
+  </div>`;
 
   perfilContainer.innerHTML = templatePerfil;
+
+  const btnFeed = perfilContainer.querySelector('#btn-feed');
+  const btnLogout = perfilContainer.querySelector('#btn-logout');
+
+      // botão função pagina feed
+      btnFeed.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.hash = '#feed';
+      });
+
+    // botão função de logout
+    btnLogout.addEventListener('click', () => {
+      userLogout()
+        .then(() => {
+          window.location.hash = '#login';
+        }).catch(() => {
+          alert('Ocorreu um erro, tente novamente.');
+        });
+    });
 
   return perfilContainer;
 };
