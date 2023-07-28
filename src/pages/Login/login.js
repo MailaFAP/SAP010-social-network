@@ -19,41 +19,40 @@ export default () => {
   <div>
   <header>
     <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
-</header>
-<div>
-  <h2>Bem vinde a sua rede social de filmes</h2>
-  <p>Login</p>
-</div>
-<div>
-<fieldset>
-  <div class="input-login-cadastro">
-    <label for="email" id="emailLabel" class="inputLabel">
-      <p>E-mail</p>
-      <img class="icons-login-cadastro" src="${emailicon}" alt="Email Icon">
-      <input type="text" name="email" class="email" id="email" placeholder="ex.: email@email.com">
-    </label>
-  </div>
-  <div class="input-login-cadastro">
-    <label for="senha" id="senhaLabel" class="inputLabel">
-    <p>Senha</p>
-    <img class="icons-login-cadastro" src="${passwordicon}" alt="Password Icon">
-    <input type="password" name="senha" class="senha" id="senha" placeholder="ex.: xxxxxx (min. 6 dígitos)">
-    </label>
-  </div>
-  <button class="btn" id="btn-login-entrar">Entrar</button>
-  <div id="errorMessage"></div>
-  <br>
-  <label for="loginGoogle" id="loginGoogle" class="loginGoogle"></label>
-  <button class="btn btn-transparente" id="btn-login-google">Login com<img alt='google icon' class='icon' src="${googleicon}"></button>
-  <br>
-  <button class="btn btn-escuro" id="btn-login-criar-conta">Não tem login? Crie sua conta agora</button>
-</fieldset>
-</div>
-<footer>
-<h5>Bootcamp Laboratoria - Projeto Rede Social</h5>
-<h6>Desenvolvido por Larissa, Maila e Vitória</h6>
-<p>2023</p>
-</footer></div>`;
+  </header>
+    <div id="notification" class="notification hidden"></div>
+    <div>
+      <h2>Bem vinde a sua rede social de filmes</h2>
+    </div>
+    <div>
+    <fieldset>
+      <div class="input-login-cadastro">
+        <label for="email" id="emailLabel" class="inputLabel">
+          <p>E-mail</p>
+          <img class="icons-login-cadastro" src="${emailicon}" alt="Email Icon">
+          <input type="text" name="email" class="email" id="email" placeholder="ex.: email@email.com">
+        </label>
+      </div>
+      <div class="input-login-cadastro">
+        <label for="senha" id="senhaLabel" class="inputLabel">
+        <p>Senha</p>
+        <img class="icons-login-cadastro" src="${passwordicon}" alt="Password Icon">
+        <input type="password" name="senha" class="senha" id="senha" placeholder="ex.: xxxxxx (min. 6 dígitos)">
+        </label>
+      </div>
+      <button class="btn" id="btn-login-entrar">Entrar</button>
+      <br>
+      <label for="loginGoogle" id="loginGoogle" class="loginGoogle"></label>
+      <button class="btn btn-transparente" id="btn-login-google">Login com<img alt='google icon' class='icon' src="${googleicon}"></button>
+      <br>
+      <button class="btn btn-escuro" id="btn-login-criar-conta">Não tem login? Crie sua conta agora</button>
+    </fieldset>
+    </div>
+    <footer>
+      <h6>Desenvolvido por: Larissa Velace | Maila Ferreira | Vitória Victor</h6>
+      <h6>Bootcamp Laboratoria - Projeto Rede Social - 2023</h6>
+    </footer>
+</div>`;
 
   loginContainer.id = 'login';
   loginContainer.innerHTML = templateLogin;
@@ -61,7 +60,6 @@ export default () => {
   // Informações preenchidas pelo usuário
   const emailEntrada = loginContainer.querySelector('#email');
   const senhaEntrada = loginContainer.querySelector('#senha');
-  const errorMessage = loginContainer.querySelector('#errorMessage');
 
   // Botões
   const entrarLoginBotao = loginContainer.querySelector('#btn-login-entrar');
@@ -80,21 +78,12 @@ export default () => {
         window.location.hash = '#feed';
       })
       .catch(() => {
-        errorMessage.textContent = 'Informações de e-mail ou senha incorretas. Tente novamente';
-        errorMessage.style.display = 'block';
+        showNotification('Epa! Alguma coisa errada aqui! Informações de e-mail ou senha incorretas. Tente novamente!', 'attention');
       });
     return false;
   };
 
   entrarLoginBotao.addEventListener('click', firstLogin);
-
-  //evento para ouvir quando a mensagem estiver começando a ser digitada e limpar campo de erro
-    emailEntrada.addEventListener('input', () => {
-      errorMessage.textContent = '';
-    });
-    senhaEntrada.addEventListener('input', () => {
-      errorMessage.textContent = '';
-    });
 
   // Login Google
   criarLoginGoogleBotao.addEventListener('click', () => {
@@ -102,8 +91,7 @@ export default () => {
       .then(() => {
         window.location.hash = '#feed';
       }).catch(() => {
-        errorMessage.textContent = 'Não foi possível logar com o Google';
-        errorMessage.style.display = 'block';
+        showNotification('Ops! Alguma coisa errada aqui! Não foi possível fazer login com o Google. Tente novamente!', 'attention');
       });
   });
 
@@ -111,6 +99,19 @@ export default () => {
     event.preventDefault();
     window.location.hash = '#cadastro';
   });
+
+    // function de criação da notificação
+    const showNotification = (message, className) => {
+      const notificationElement = document.getElementById('notification');
+      notificationElement.textContent = message;
+      notificationElement.classList.add(className);
+      notificationElement.style.display = 'block';
+  
+      setTimeout(() => {
+        notificationElement.style.display = 'none';
+        notificationElement.classList.remove(className);
+      }, 5000);
+    };
 
   return loginContainer;
 };

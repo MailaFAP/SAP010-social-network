@@ -1,6 +1,6 @@
 import './cadastro.css';
 import { cadastroUsuarioSenha } from '../../lib/authUser.js';
-import {updateProfile} from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 
 import usericon from '../../img/icons/icones-user1.svg';
 import emailicon from '../../img/icons/icones-email.svg';
@@ -8,11 +8,11 @@ import passwordicon from '../../img/icons/icones-password.svg';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
-  if(oldStyles.length > 1) oldStyles[1].remove();
+  if (oldStyles.length > 1) oldStyles[1].remove();
   const stylesheet = document.createElement('link');
   stylesheet.setAttribute('rel', 'stylesheet');
   stylesheet.setAttribute('type', 'text/css');
-  stylesheet.setAttribute('href','pages/Cadastro/cadastro.css');
+  stylesheet.setAttribute('href', 'pages/Cadastro/cadastro.css');
   document.head.appendChild(stylesheet);
 
   const cadastroContainer = document.createElement('div');
@@ -20,6 +20,7 @@ export default () => {
   <header>
     <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
   </header>
+  <div id="notification" class="notification hidden"></div>
   <div>
     <h2>Bem vinde a sua rede social de filmes</h2>
   </div>
@@ -50,14 +51,13 @@ export default () => {
         </div>
         <button class="btn" id="btn-cad-voltar">Voltar</button>
         <button class="btn" id="btn-cad-concluir">Concluir cadastro</button>
-        <div id="errorMessage" class="error">
       </fieldset>
     </form>
-  <footer>
-    <h5>Bootcamp Laboratoria - Projeto Rede Social</h5>
-    <h6>Desenvolvido por Larissa, Maila e Vitória</h6>
-    <p>2023</p>
-  </footer></div>`;
+    <footer>
+      <h6>Desenvolvido por: Larissa Velace | Maila Ferreira | Vitória Victor</h6>
+      <h6>Bootcamp Laboratoria - Projeto Rede Social - 2023</h6>
+    </footer>
+  </div>`;
 
   cadastroContainer.id = 'login'; // CSS
   cadastroContainer.innerHTML = templateCadastro;
@@ -89,7 +89,7 @@ export default () => {
           })
             .then(() => {
               window.location.hash = '#feed'
-          });
+            });
         },
       )
       .catch((error) => {
@@ -98,45 +98,46 @@ export default () => {
         errorMessage.style.display = 'block';
         switch (error.code) {
           case 'auth/missing-email':
-            errorMessage.textContent = 'Preencha o e-mail!';
-            errorMessage.style.display = 'block';
+            showNotification('Ei, tá incompleto aqui! Preencha o e-mail!', 'attention');
             break;
 
           case 'auth/email-already-in-use':
-            errorMessage.textContent = 'E-mail já está em uso!';
-            errorMessage.style.display = 'block';
+            showNotification('Epa! O e-mail já está em uso!', 'attention');
             break;
 
           case 'auth/missing-password':
-            errorMessage.textContent = 'Preencha a senha!';
-            errorMessage.style.display = 'block';
+            showNotification('Ops! Faltou preencher a senha!', 'attention');
             break;
 
           case 'auth/invalid-password':
-            errorMessage.textContent = 'Senha inválida';
-            errorMessage.style.display = 'block';
+            showNotification('Errr... Essa senha é curta ou inválida. Tenta outra!', 'attention');
             break;
           default:
-            errorMessage.textContent = 'Confira os dados inseridos. E-mail e senha incorretos ou em branco.';
-            errorMessage.style.display = 'block';
+            showNotification('Deu ruim aqui! Dá uma verificada aí, que os dados estão incorretos ou em branco.', 'attention');
         }
-      });    
+      });
   };
 
   botaoCadastrar.addEventListener('click', registerUser);
 
-    //evento para ouvir quando a mensagem estiver começando a ser digitada e limpar campo de erro
-    emailEntrada.addEventListener('input', () => {
-      errorMessage.textContent = '';
-    });
-    senhaEntrada.addEventListener('input', () => {
-      errorMessage.textContent = '';
-    });
-
+  // botão voltar para primeira página
   botaoVoltar.addEventListener('click', (event) => {
     event.preventDefault();
     window.location.hash = '#login';
-  });
+  }); 
+
+  // function de criação da notificação
+  const showNotification = (message, className) => {
+    const notificationElement = document.getElementById('notification');
+    notificationElement.textContent = message;
+    notificationElement.classList.add(className);
+    notificationElement.style.display = 'block';
+
+    setTimeout(() => {
+      notificationElement.style.display = 'none';
+      notificationElement.classList.remove(className);
+    }, 5000);
+  };
 
   return cadastroContainer;
 };

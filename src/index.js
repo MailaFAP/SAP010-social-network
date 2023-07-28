@@ -1,5 +1,6 @@
 import login from './pages/Login/login.js';
 import cadastro from './pages/Cadastro/cadastro.js';
+import perfil from './pages/Perfil/perfil.js';
 import feed from './pages/Feed/feed.js';
 import { userAuthCheck } from './lib/authUser.js';
 const main = document.querySelector('#root');
@@ -14,6 +15,9 @@ const init = async () => {
       case '#cadastro':
         main.appendChild(cadastro());
         break;
+      case '#perfil':
+        main.appendChild(perfil());
+        break;
       case '#feed': {
         await verificarLogin();
         break;
@@ -24,10 +28,6 @@ const init = async () => {
     }
   });
 };
-
-/* window.addEventListener('feed', ()  => {
-  setTimeout(verificarLogin, 2000);
-}); */
 
 
 async function verificarLogin() {
