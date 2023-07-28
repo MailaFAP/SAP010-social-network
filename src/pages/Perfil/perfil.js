@@ -2,6 +2,7 @@ import './perfil.css';
 import { userLogout, getUserName } from '../../lib/authUser.js';
 
 import logocontraplano from '../../img/icon_logo_contraplano.png';
+import imageperfil from '../../img/spectator-perfil.png';
 import feedicon from '../../img/icons/icones-feed.svg';
 //import commentarea from '../../img/icons/icones-comment.svg';
 //import newposticon from '../../img/icons/icones-send.svg';
@@ -21,7 +22,6 @@ export default () => {
       <picture><img class="logoperfil" src="${logocontraplano}"></picture>
       <div>
         <h3> Perfil </h3>
-        <p>${getUserName()}</p>
       </div>
   <section>
   <div id="notification" class="notification hidden"></div>
@@ -29,7 +29,11 @@ export default () => {
     <button class="btn-logout" id="btn-logout"><img class="icon" title="Log Out" src="${logouticon}"></button>
   </section>
   </header>
-  <section class = inicioPerfil>
+  <div>
+    <picture><img class="image-perfil" id="image-perfil" src="${imageperfil}"></picture>
+    <p class="user-name-perfil">${getUserName()}</p>
+  </div>
+  <section class="inicioPerfil">
       <h4> ”É curioso como as cores do mundo real parecem muito mais reais quando vistas no cinema.” Laranja Mêcanica, 1971 </h4>
   </section>
   <section>

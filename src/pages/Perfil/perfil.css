@@ -3,6 +3,10 @@
   margin: 5px;
 }
 
+h3{
+  align-items: left;
+}
+
 button{
   border: none;
   background-color: #64008e ;
@@ -12,7 +16,7 @@ button{
   margin: 10px;
 }
 
-.userName{
+.user-name-perfil{
   font-weight: bold;
   color: #BA19FF;
 }
@@ -36,4 +40,13 @@ header{
 
 header section {
   padding: 1%;
+}
+
+.image-perfil{
+  width: 120px;
+  border-radius: 20px;
+}
+
+.inicioPerfil{
+  margin: 5px;
 }
