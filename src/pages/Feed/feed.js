@@ -7,7 +7,8 @@ import perfilicon from '../../img/icons/icones-user1.svg';
 import commentarea from '../../img/icons/icones-comment.svg';
 import newposticon from '../../img/icons/icones-send.svg';
 import logouticon from '../../img/icons/icones-logout.svg';
-import likeicon from '../../img/icons/icones-like2.svg';
+import likeiconon from '../../img/icons/icones-like1.svg';
+import likeiconoff from '../../img/icons/icones-like2.svg';
 import editicon from '../../img/icons/icones-edit.svg';
 import deleteicon from '../../img/icons/icones-delete.svg';
 
@@ -62,7 +63,7 @@ export default () => {
 
   // Informações preenchidas pelo usuário
   const textoMensagemEntrada = feedContainer.querySelector('#textoMensagem');
-  
+
 
   // Botões
   const btnPost = feedContainer.querySelector('#btn-send-post');
@@ -96,9 +97,14 @@ export default () => {
       </div>
       <div class='icons'>
       <!-- Botão de like e contador de likes -->
-        <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
-          <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' title="Like" src="${likeicon}"/><span id="likes-counter-${postId}">${whoLiked.length}</span> likes</a> 
-        </button>
+      <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
+      <div class='icon-post' id='icons-like'>
+        <img alt='like icon' class='icon' title="Like" data-like-state="off" src="${likeiconoff}"/>
+        <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
+      </div>
+    </button>
+    
+    </button>
       <!-- Botão de editar e deletar para uid do usuario autor -->
           ${uidUser === getUserId() ? `
           <button class="btn-post" 
@@ -127,18 +133,23 @@ export default () => {
       <p class='dataPost'>${createdAtFormatted}</p>
     </section>`;
 
- // LIKE EM POSTS: dar likes em publicações
+    // LIKE EM POSTS: dar likes em publicações
     const likeButton = postElement.querySelector('#btn-like-post');
     const likesCounter = postElement.querySelector(`#likes-counter-${postId}`);
-    
+    const likeIcon = postElement.querySelector('.icon-post img');
+
     // Evento de escuta para o botão de like
     likeButton.addEventListener('click', async () => {
       try {
         const likeResult = await likePost(postId, getUserId());
         if (likeResult === 'add like') {
           likesCounter.innerText = parseInt(likesCounter.innerText, 10) + 1;
+          likeIcon.dataset.likeState = 'on';
+          likeIcon.src = likeiconon;
         } else if (likeResult === 'remove like') {
           likesCounter.innerText = parseInt(likesCounter.innerText, 10) - 1;
+          likeIcon.dataset.likeState = 'off';
+          likeIcon.src = likeiconoff;
         }
       } catch (error) {
         showNotification('Ops, não rolou o like', 'error');
@@ -148,7 +159,7 @@ export default () => {
 
     return postElement;
   };
-  
+
 
   //lista de publicações aqui
   const inicioPosts = () => {
@@ -269,7 +280,7 @@ export default () => {
         const toggleElementDisplay = (element, displayValue) => {
           element.style.display = displayValue;
         };
-        
+
         const editTitle = postElement.querySelector('.edit-title');
         const editArea = postElement.querySelector('.edit-textarea');
         const editButtons = postElement.querySelector('.edit-buttons');
@@ -325,18 +336,18 @@ export default () => {
           showNotification('O post não foi editado, tá?', 'attention');
         });
       } else {
-        alert('Alto lá! Você não pode alterar esse post!');
+        showNotification('Alto lá! Você não pode alterar esse post!', 'error');
       }
     }
   };
 
   listPosts.addEventListener('click', editPostListClick);
 
-    // botão função pagina perfil
-    btnPerfil.addEventListener('click', (event) => {
-      event.preventDefault();
-      window.location.hash = '#perfil';
-    });
+  // botão função pagina perfil
+  btnPerfil.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.hash = '#perfil';
+  });
 
   // botão função de logout
   btnLogout.addEventListener('click', () => {
@@ -344,7 +355,7 @@ export default () => {
       .then(() => {
         window.location.hash = '#login';
       }).catch(() => {
-        alert('Ocorreu um erro, tente novamente.');
+        showNotification('Ops! Erro ao fazer log out. Tente novamente', 'error');
       });
   });
 
