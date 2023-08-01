@@ -1,6 +1,6 @@
 import './feed.css';
 import { userLogout, getUserName, getUserId } from '../../lib/authUser.js';
-import { posts, exibAllPosts, deletePost, updatePost } from '../../lib/firestore.js';
+import { posts, exibAllPosts, deletePost, updatePost, likePost } from '../../lib/firestore.js';
 
 import logocontraplano from '../../img/icon_logo_contraplano.png';
 import perfilicon from '../../img/icons/icones-user1.svg';
@@ -76,6 +76,7 @@ export default () => {
     textPost,
     postId,
     uidUser,
+    whoLiked,
   ) => {
     const createdAtDate = date.toDate();
     const createdAtFormattedDate = createdAtDate.toLocaleDateString('pt-BR');
@@ -94,9 +95,13 @@ export default () => {
         <p class='textPost'>${textPost}</p>
       </div>
       <div class='icons'>
-          <button type='button' class='icons-post' id='like-Post' data-post-id='${postId}'>
-            <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' title="Like" src="${likeicon}"/></a> 
-          </button>
+      <!-- Botão de like e contador de likes -->
+      <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
+        <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' title="Like" src="${likeicon}"/></a> 
+      </button>
+      <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
+
+      <!-- Botão de editar e deletar para uid do usuario autor -->
           ${uidUser === getUserId() ? `
           <button class="btn-post" 
           id="btn-edit-post" 
@@ -139,12 +144,17 @@ export default () => {
             listaPosts[i].date,
             listaPosts[i].textPost,
             listaPosts[i].id,
-            listaPosts[i].uidUser
+            listaPosts[i].uidUser,
+            listaPosts[i].whoLiked
           );
           listPosts.appendChild(itemPost);
         }
         const listPostRect = listPosts.getBoundingClientRect();
         listPosts.style.maxHeight = `${window.innerHeight - listPostRect.y}px`;
+      
+              // Chamada para atualizar a lista de posts com os likes
+      updateListPost(listaPosts);
+      
       })
       .catch((error) => {
         console.log(error);
@@ -312,7 +322,45 @@ export default () => {
 
 
   // LIKE EM POSTS: dar likes em publicações
+  const updateListPost = (TodosPosts) => {
+    postList.innerHTML = '';
+    TodosPosts.forEach(async (post) => {
+      const {
+        name, createdAt, description, id, author, whoLiked,
+      } = post;
+      const postElement = createPostElement(
+        name,
+        createdAt,
+        description,
+        id,
+        author,
+        whoLiked,
+      );
+      postList.appendChild(postElement);
 
+      const likeButton = postElement.querySelector('#btn-like-post');
+      const postId = likeButton.getAttribute('data-post-id');
+      const likesCounter = postElement.querySelector(`#likes-counter-${postId}`);
+      
+      // Evento de escuta para o botão de like
+      likeButton.addEventListener('click', async () => {
+        try {
+          console.log('cliquei no like')
+          const likeResult = await likePost(postId, getUserId());
+          if (likeResult === 'add like') {
+            likesCounter.innerText = parseInt(likesCounter.innerText, 10) + 1;
+          } else if (likeResult === 'remove like') {
+            likesCounter.innerText = parseInt(likesCounter.innerText, 10) - 1;
+          }
+        } catch (error) {
+          // Lida com o erro ao dar like
+          showNotification('Ops, não rolou o like', 'error');
+          console.error(error);
+        }
+      });
+    });
+  };
+  
 
     // botão função pagina perfil
     btnPerfil.addEventListener('click', (event) => {
@@ -354,7 +402,6 @@ export default () => {
       notificationElement.classList.remove(className);
     }, 5000);
   };
-
 
   return feedContainer;
 

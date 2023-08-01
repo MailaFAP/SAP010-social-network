@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from './configfirebase.js';
 
 export const posts = async (postagem) => {
@@ -8,7 +8,7 @@ export const posts = async (postagem) => {
     uidUser: auth.currentUser.uid,
     date: timestamp,
     textPost: postagem,
-    like: []
+    whoLiked : []
   });
   return document;
 };
@@ -33,4 +33,38 @@ export const deletePost = async (postId) => {
 export const updatePost = async (postId, newData) => {
   const postRef = doc(db, 'posts', postId);
   await updateDoc(postRef, newData);
+};
+
+// like e tirar o like
+export const likePost = async (postId, userId) => {
+  const userHasLikedPost = await hasUserLikedPost(postId, userId);
+  const docRef = doc(db, 'posts', postId);
+
+  if (!userHasLikedPost) {
+    await updateDoc(docRef, {
+      whoLiked: arrayUnion(userId)
+    });
+    return 'add like';
+  } else {
+    await updateDoc(docRef, {
+      whoLiked: arrayRemove(userId)
+    });
+    return 'remove like';
+  }
+};
+
+// id de quem deu like
+export const hasUserLikedPost = async (postId) => {
+  const docRef = doc(db, 'posts', postId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap && docSnap.exists) {
+    const post = docSnap.data();
+    const { whoLiked } = post;
+    const currentUser = getAppAuth().currentUser;
+    if (currentUser && currentUser.uid) {
+      const userId = currentUser.uid;
+      return whoLiked.includes(userId);
+    }
+  }
+  return false;
 };
