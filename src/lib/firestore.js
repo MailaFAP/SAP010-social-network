@@ -2,7 +2,7 @@ import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc 
 import { auth, db } from './configfirebase.js';
 
 export const posts = async (postagem) => {
-  const timestamp = new Date()
+  const timestamp = new Date();
   const document = await addDoc(collection(db, 'posts'), {
     nameUser: auth.currentUser.displayName,
     uidUser: auth.currentUser.uid,
@@ -32,6 +32,5 @@ export const deletePost = async (postId) => {
 // editar o post
 export const updatePost = async (postId, newData) => {
   const postRef = doc(db, 'posts', postId);
-  console.log(postId, newData);
   await updateDoc(postRef, newData);
 };
