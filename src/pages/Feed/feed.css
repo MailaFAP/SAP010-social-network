@@ -6,7 +6,7 @@
   text-align: left;
   padding: 10px;
   color: #ffffff;
-  width: 80%;
+  width: 75%;
   display: flexbox;
 }
 
@@ -39,6 +39,7 @@ textarea::placeholder{
   align-content: center;
 }
  */
+
 button{
   border: none;
   background-color: #64008e ;
