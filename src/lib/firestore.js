@@ -26,7 +26,7 @@ export const exibAllPosts = async () => {
 };
 
 export const deletePost = async (postId) => {
-  const idRefPost = doc(db, 'posts', postId);
+  const idRefPost = doc(db, "posts", postId);
   await deleteDoc(idRefPost);
 }
 
@@ -42,25 +42,29 @@ export const likePost = async (postId, userId) => {
   const docRef = doc(db, 'posts', postId);
   if (!userHasLikedPost) {
     await updateDoc(docRef, {
-      whoLiked: arrayUnion(userId),
+      whoLiked: arrayUnion(userId)
     });
     return 'add like';
   } else {
     await updateDoc(docRef, {
-      whoLiked: arrayRemove(userId),
+      whoLiked: arrayRemove(userId)
     });
     return 'remove like';
   }
 };
 
 // id de quem deu like
-export const hasUserLikedPost = async (postId, userId) => {
+export const hasUserLikedPost = async (postId) => {
   const docRef = doc(db, 'posts', postId);
   const docSnap = await getDoc(docRef);
   if (docSnap && docSnap.exists()) {
     const post = docSnap.data();
     const { whoLiked } = post;
-    return whoLiked.includes(userId);
+    const currentUser = getAppAuth().currentUser;
+    if (currentUser && currentUser.uid) {
+      const userId = currentUser.uid;
+      return whoLiked.includes(userId);
+    }
   }
   return false;
 };

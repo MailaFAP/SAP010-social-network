@@ -192,23 +192,28 @@ export default () => {
   btnCleanDelete.addEventListener('click', clearTextarea);
 
   //ADD NOVO POST: fazer postagem nova direto do app/web
-  btnPost.addEventListener('click', () => {
-    const textoPostagem = textoMensagemEntrada.value;
-    if (!textoPostagem) {
-      showNotification('A barra tá limpa aqui! Escreve umas coisinhas antes de enviar.', 'attention');
-    } else {
-      posts(textoPostagem)
-        .then(() => {
-          textoMensagem.value = '';
-          showNotification('Eba! Seu post foi publicado!', 'success');
-          inicioPosts();
-        })
-        .catch((error) => {
-          showNotification('Ops! Deu ruim aqui na publicação, tente novamente.', 'error');
-          console.log(error);
-        });
+//ADD NOVO POST: fazer postagem nova direto do app/web
+btnPost.addEventListener('click', async () => {
+  const textoPostagem = textoMensagemEntrada.value;
+  if (!textoPostagem) {
+    showNotification('A barra tá limpa aqui! Escreve umas coisinhas antes de enviar.', 'attention');
+  } else {
+    try {
+      await posts(textoPostagem);
+      textoMensagemEntrada.value = ''; // Limpa o texto da caixa de comentário
+      showNotification('Eba! Seu post foi publicado!', 'success');
+      inicioPosts();
+
+      // Fecha a caixa de comentário após a publicação do post
+      newComment.classList.add('hidden');
+      newComment.classList.remove('visible');
+    } catch (error) {
+      showNotification('Ops! Deu ruim aqui na publicação, tente novamente.', 'error');
+      console.log(error);
     }
-  })
+  }
+});
+
 
   //DELETAR POST: selecionar e deletar comentário feito pelo proprio usuário
   const handlePostListClick = (event) => {

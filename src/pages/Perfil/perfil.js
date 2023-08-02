@@ -3,6 +3,7 @@ import { userLogout, getUserName } from '../../lib/authUser.js';
 
 import logocontraplano from '../../img/icon_logo_contraplano.png';
 import imageperfil from '../../img/spectator-perfil.png';
+import postermodel from '../../img/poster_model.png';
 import feedicon from '../../img/icons/icones-feed.svg';
 //import commentarea from '../../img/icons/icones-comment.svg';
 //import newposticon from '../../img/icons/icones-send.svg';
@@ -34,7 +35,21 @@ export default () => {
     <p class="user-name-perfil">${getUserName()}</p>
   </div>
   <section class="inicioPerfil">
-      <h4> ”É curioso como as cores do mundo real parecem muito mais reais quando vistas no cinema.” Laranja Mêcanica, 1971 </h4>
+    <div class="bio-perfil">
+      <h5 class="perfil-destaque">Bio</h5>
+        <p> ”É curioso como as cores do mundo real parecem muito mais reais quando vistas no cinema.” Laranja Mêcanica, 1971 </p>
+    </div>
+    <div class="posts-destaque-usuario">
+      <h5 class="perfil-destaque">Suas postagens publicadas recentemente</h5>
+      <div class="posts-usuario">Indisponível no momento.</div>
+      <a href="#feed">Acesse o feed</a>
+    </div>
+    <div class="favoritos">
+      <h5 class="perfil-destaque">Seus filmes e séries favoritos</h5>
+      <picture><img class="image-poster" src="${postermodel}"></picture>
+      <picture><img class="image-poster" src="${postermodel}"></picture>
+      <picture><img class="image-poster" src="${postermodel}"></picture>
+    </div>
   </section>
   <section>
 

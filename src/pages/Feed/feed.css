@@ -122,10 +122,27 @@ header section {
 
 footer{
   padding-bottom: 3px;
+  margin-bottom: 10px;
 }
 
 footer h6{
   margin: 10px;
+}
+
+.perfil-destaque{
+  color: #60ea4bd7;
+}
+
+a{
+  color: #BA19FF;
+  font-style: italic;
+  border-radius: 15px;
+  padding: 2px;
+  text-decoration: none;
+}
+.image-poster{
+  width: 15%;
+  margin: 5px;
 }
 
 /* Botão novo comentário */
