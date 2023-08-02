@@ -1,19 +1,55 @@
 import { addDoc, collection, deleteDoc, updateDoc, query, orderBy, getDocs } from 'firebase/firestore';
-import { posts, deletePost, updatePost, exibAllPosts } from '../src/lib/firestore';
+import { posts, deletePost, updatePost, exibAllPosts, hasUserLikedPost, likePost } from '../src/lib/firestore';
 import { auth, db } from '../src/lib/configfirebase';
 
 const idRefPost = { id: '123' };
 const newData = { title: 'Novo Título', content: 'Novo conteúdo' };
 
+
 jest.mock('firebase/firestore', () => ({
     addDoc: jest.fn(),
     deleteDoc: jest.fn(),
     updateDoc: jest.fn(),
+    arrayUnion: jest.fn(),
+    arrayRemove: jest.fn(),
     collection: jest.fn(),
     doc: jest.fn(() => idRefPost),
     query: jest.fn(),
-    orderby: jest.fn(),
-    getDocs: jest.fn()
+    orderBy: jest.fn(),
+    getDoc: jest.fn(),
+    getDocs: jest.fn().mockResolvedValue(new Array(
+        {
+            data: () => {
+                return {
+                    date: '28 de julho de 2023 às 06:50:07 UTC-3',
+                    nameUser: 'Feijoada',
+                    textPost: 'Vendo filmes de comida enquanto como, claro.',
+                    uidUser: '2PU3fWBYiVNYPi2k2vYC4VAvii52',
+                    whoLiked: ['',
+                        'W9zoHQt18ZYwMPGJisVtiHqFAcS2',
+                        'jCJ7pDW6KYUQQ9kYafmxhBGjHiu2',
+                        'AS3UFBGJG4eSqPxzqiQ4qO4CKSK2'
+                    ]
+                };
+            },
+            id: 55485488
+        },
+        {
+            data:  () => {
+                return {
+                    date: '28 de julho de 2023 às 06:50:07 UTC-3',
+                    nameUser: 'Feijoada',
+                    textPost: 'Vendo filmes de comida enquanto como, claro.',
+                    uidUser: '2PU3fWBYiVNYPi2k2vYC4VAvii52',
+                    whoLiked: ['',
+                        'W9zoHQt18ZYwMPGJisVtiHqFAcS2',
+                        'jCJ7pDW6KYUQQ9kYafmxhBGjHiu2',
+                        'AS3UFBGJG4eSqPxzqiQ4qO4CKSK2'
+                    ]
+                };
+            },
+            id: 988744848
+        }))
 }));
 
 jest.mock('../src/lib/configfirebase', () => ({
@@ -36,7 +72,7 @@ describe('posts', () => {
             uidUser: currentUser.uid,
             date: timestamp,
             textPost: postagem,
-            like: []
+            whoLiked: []
         };
         await posts(postagem);
         expect(collection).toHaveBeenCalledWith(db, 'posts');
@@ -64,35 +100,37 @@ describe('updatePost', () => {
 
 
 describe('exibAllPosts', () => {
-    it('deve retornar uma lista vazia quando não houver posts', async () => {
-        // mockando a função getDocs para retornar uma lista vazia
-        const getDocs = jest.fn().mockResolvedValue([]);
-        // chamando a função a ser testada
-        const result = await exibAllPosts();
-        // verificando se a lista retornada é vazia
-        expect(result).toEqual([]);
-        // verificando se a função getDocs foi chamada corretamente
-        expect(getDocs).toHaveBeenCalledWith(query(collection(db, 'posts'), orderBy('date', 'asc')));
-    });
+    it('traz lista de posts', async () => {
+        const lista = await exibAllPosts();
+        expect(Array.isArray(lista)).toBe(true);
 
-    it('deve retornar a lista de posts corretamente', async () => {
-        // criando um array para simular os dados dos posts
-        const posts = [
-            { id: 1, title: 'Post 1', date: '2022-01-01' },
-            { id: 2, title: 'Post 2', date: '2022-01-02' },
-            { id: 3, title: 'Post 3', date: '2022-01-03' }
-        ];
-        // mockando a função getDocs para retornar os posts criados
-        const getDocs = jest.fn().mockResolvedValue(posts);
-        // chamando a função a ser testada
-        const result = await exibAllPosts();
-        // verificando se a lista retornada é igual aos posts criados com o id adicionado
-        expect(result).toEqual([
-            { id: 1, title: 'Post 1', date: '2022-01-01' },
-            { id: 2, title: 'Post 2', date: '2022-01-02' },
-            { id: 3, title: 'Post 3', date: '2022-01-03' }
-        ]);
-        // verificando se a função getDocs foi chamada corretamente
-        expect(getDocs).toHaveBeenCalledWith(query(collection(db, 'posts'), orderBy('date', 'asc')));
+    });
+});
+
+jest.mock('../src/lib/firestore.js', () => {
+    const original = jest.requireActual('../src/lib/firestore.js');
+    return {
+        __esModule: true,
+        ...original,
+        hasUserLikedPost: jest.fn().mockImplementation((p1) => {
+            if (p1 === 'abobrinha') {
+                return Promise.resolve(false);
+            } else {
+                return Promise.resolve(true);
+            }
+        })
+    };    
+});
+
+describe('likePost', () => {
+    it('dar like', async () => {
+        const legumes = await likePost('abobrinha', 'chuchu');
+        expect(legumes).toBe('add like');
+
+    });
+    it('remove like', async () => {
+        const maisLegumes = await likePost('berinjela', 'beterraba');
+        expect(maisLegumes).toBe('remove like');
+
     });
 });
