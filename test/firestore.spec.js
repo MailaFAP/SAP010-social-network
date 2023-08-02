@@ -35,7 +35,7 @@ jest.mock('firebase/firestore', () => ({
             id: 55485488
         },
         {
-            data:  () => {
+            data: () => {
                 return {
                     date: '28 de julho de 2023 às 06:50:07 UTC-3',
                     nameUser: 'Feijoada',
@@ -119,7 +119,7 @@ jest.mock('../src/lib/firestore.js', () => {
                 return Promise.resolve(true);
             }
         })
-    };    
+    };
 });
 
 describe('likePost', () => {
@@ -134,3 +134,5 @@ describe('likePost', () => {
 
     });
 });
+
+//falta haslikepost

@@ -39,8 +39,7 @@ export const getUserName = () => {
     return user.displayName;
     //return user.photoURL;
   }
-  return "Anônimo";  //o usuário autentica e entra, se ele não autentica, mostra mensagem de erro. 
-  //Então não entendi pq essa condição de retornar anonimo?
+  return "Anônimo";
 };
 // id do usuario no firebase
 export const getUserId = () => {
