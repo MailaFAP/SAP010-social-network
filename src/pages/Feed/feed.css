@@ -7,11 +7,13 @@
   padding: 10px;
   color: #ffffff;
   width: 80%;
-  display: flexbox;
+  display: flex;
+  justify-content: space-between;
 }
 
-#listPosts div{
-  align-content: center;
+#listPosts > div{
+  display: flex;
+  justify-content: center;
 }
 
 textarea{
@@ -34,14 +36,14 @@ textarea::placeholder{
   margin: 5px;
 }
 
-/* .icons{
+.icons{
   display: flex;
   align-content: center;
 }
- */
+ 
 button{
   border: none;
-  background-color: #64008e ;
+  background-color: #64008e;
   border-radius: 15px;
   padding: 5px;
   color: #ffffff;
@@ -68,6 +70,7 @@ button{
 
 .nameUser{
   display: inline-flexbox;
+  text-align: center;
 }
 
 .dataPost{

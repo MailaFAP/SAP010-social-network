@@ -88,12 +88,13 @@ export default () => {
     const postElement = document.createElement('div');
     postElement.innerHTML = `
     <section class="post-container">
+    <div></div>
       <div class='nameUser'>
         <p class='userName'>${nameUser}</p>
-        
         <p class='textPost'>${textPost}</p>
       </div>
       <div class='icons'>
+      <div>
           <button type='button' class='icons-post' id='like-Post' data-post-id='${postId}'>
             <a class='icon-post' id='icons-like'><img alt='like icon' class='icon' title="Like" src="${likeicon}"/></a> 
           </button>
@@ -122,6 +123,7 @@ export default () => {
             </div>` : ''}
       </div>
       <p class='dataPost'>${createdAtFormatted}</p>
+      </div>
     </section>`;
     //usado o operador ternario (condition ? expr1 : expr2)
     return postElement;
