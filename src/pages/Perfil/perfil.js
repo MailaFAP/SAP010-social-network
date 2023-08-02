@@ -43,6 +43,7 @@ export default () => {
       <h5 class="perfil-destaque">Suas postagens publicadas recentemente</h5>
       <div class="posts-usuario">Indisponível no momento.</div>
       <a href="#feed">Acesse o feed</a>
+      <div></div>
     </div>
     <div class="favoritos">
       <h5 class="perfil-destaque">Seus filmes e séries favoritos</h5>

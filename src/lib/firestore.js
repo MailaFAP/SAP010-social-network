@@ -26,7 +26,7 @@ export const exibAllPosts = async () => {
 };
 
 export const deletePost = async (postId) => {
-  const idRefPost = doc(db, "posts", postId);
+  const idRefPost = doc(db, 'posts', postId);
   await deleteDoc(idRefPost);
 }
 
