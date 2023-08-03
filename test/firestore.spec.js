@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, updateDoc, query, orderBy, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, updateDoc, query, orderBy, getDocs, getDoc } from 'firebase/firestore';
 import { posts, deletePost, updatePost, exibAllPosts, hasUserLikedPost, likePost } from '../src/lib/firestore';
 import { auth, db } from '../src/lib/configfirebase';
 
@@ -16,7 +16,7 @@ jest.mock('firebase/firestore', () => ({
     doc: jest.fn(() => idRefPost),
     query: jest.fn(),
     orderBy: jest.fn(),
-    getDoc: jest.fn(),
+    getDoc: jest.fn(),  
     getDocs: jest.fn().mockResolvedValue(new Array(
         {
             data: () => {
@@ -103,36 +103,54 @@ describe('exibAllPosts', () => {
     it('traz lista de posts', async () => {
         const lista = await exibAllPosts();
         expect(Array.isArray(lista)).toBe(true);
-
+        expect(lista[0]).toHaveProperty('id');
+        expect(lista[1]).toHaveProperty('id');
     });
 });
 
-jest.mock('../src/lib/firestore.js', () => {
-    const original = jest.requireActual('../src/lib/firestore.js');
-    return {
-        __esModule: true,
-        ...original,
-        hasUserLikedPost: jest.fn().mockImplementation((p1) => {
-            if (p1 === 'abobrinha') {
-                return Promise.resolve(false);
-            } else {
-                return Promise.resolve(true);
-            }
-        })
-    };
-});
+
 
 describe('likePost', () => {
+    beforeEach(() => {
+        jest.doMock('../src/lib/firestore.js', () => {
+            const original = jest.requireActual('../src/lib/firestore.js');
+            return {
+                __esModule: true,
+                ...original,
+                hasUserLikedPost: jest.fn()
+            };
+        });
+    });
+    
     it('dar like', async () => {
+        hasUserLikedPost.mockResolvedValueOnce(false);
         const legumes = await likePost('abobrinha', 'chuchu');
         expect(legumes).toBe('add like');
 
     });
     it('remove like', async () => {
+        hasUserLikedPost.mockResolvedValueOnce(true);
         const maisLegumes = await likePost('berinjela', 'beterraba');
         expect(maisLegumes).toBe('remove like');
 
     });
 });
 
-//falta haslikepost
+describe('hasUserLikedPost', () => {  
+    it('usuário deu like', async () => {
+        getDoc.mockResolvedValueOnce({
+            exists: () => true,
+            data: () => {
+                return {whoLiked: ['id do usuário']};
+            }
+        });
+        const like = await hasUserLikedPost('id do post', 'id do usuário');
+        expect(like).toBeTruthy();
+    });
+
+    it('usuário não deu like', async () => {
+        getDoc.mockResolvedValueOnce({exists: () => false});
+        const like = await hasUserLikedPost('id do post', 'id do usuário');
+        expect(like).toBeFalsy();
+    });
+});
