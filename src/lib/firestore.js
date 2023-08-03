@@ -58,7 +58,7 @@ export const likePost = async (postId, userId) => {
 export const hasUserLikedPost = async (postId, userId) => {
   const docRef = doc(db, 'posts', postId);
   const docSnap = await getDoc(docRef);
-  if (docSnap && docSnap.exists) {
+  if (docSnap && docSnap.exists()) {
     const post = docSnap.data();
     const { whoLiked } = post;
     return whoLiked.includes(userId);
