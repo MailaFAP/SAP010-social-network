@@ -1,6 +1,5 @@
 import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc, getDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { auth, db } from './configfirebase.js';
-import { getAppAuth } from './authUser.js';
 
 export const posts = async (postagem) => {
   const timestamp = new Date();
@@ -42,12 +41,12 @@ export const likePost = async (postId, userId) => {
   const docRef = doc(db, 'posts', postId);
   if (!userHasLikedPost) {
     await updateDoc(docRef, {
-      whoLiked: arrayUnion(userId),
+      whoLiked: arrayUnion(userId)
     });
     return 'add like';
   } else {
     await updateDoc(docRef, {
-      whoLiked: arrayRemove(userId),
+      whoLiked: arrayRemove(userId)
     });
     return 'remove like';
   }
@@ -55,7 +54,7 @@ export const likePost = async (postId, userId) => {
 
 // id de quem deu like
 export const hasUserLikedPost = async (postId, userId) => {
-  const docRef = doc(db, 'posts', postId);
+  const docRef = doc(db, 'posts', postId);  
   const docSnap = await getDoc(docRef);
   if (docSnap && docSnap.exists()) {
     const post = docSnap.data();
