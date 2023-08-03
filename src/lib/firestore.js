@@ -1,6 +1,5 @@
 import { collection, addDoc, getDocs, query, orderBy, doc, deleteDoc, updateDoc, getDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { auth, db } from './configfirebase.js';
-import { getAppAuth } from './authUser.js';
 
 export const posts = async (postagem) => {
   const timestamp = new Date();
