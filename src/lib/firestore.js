@@ -54,17 +54,13 @@ export const likePost = async (postId, userId) => {
 };
 
 // id de quem deu like
-export const hasUserLikedPost = async (postId) => {
-  const docRef = doc(db, 'posts', postId);
+export const hasUserLikedPost = async (postId, userId) => {
+  const docRef = doc(db, 'posts', postId);  
   const docSnap = await getDoc(docRef);
   if (docSnap && docSnap.exists()) {
     const post = docSnap.data();
     const { whoLiked } = post;
-    const currentUser = getAppAuth().currentUser;
-    if (currentUser && currentUser.uid) {
-      const userId = currentUser.uid;
-      return whoLiked.includes(userId);
-    }
+    return whoLiked.includes(userId);
   }
   return false;
 };
