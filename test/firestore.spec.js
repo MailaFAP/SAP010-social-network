@@ -110,27 +110,21 @@ describe('exibAllPosts', () => {
 
 
 
-describe('likePost', () => {
-    beforeEach(() => {
-        jest.doMock('../src/lib/firestore.js', () => {
-            const original = jest.requireActual('../src/lib/firestore.js');
-            return {
-                __esModule: true,
-                ...original,
-                hasUserLikedPost: jest.fn()
-            };
-        });
-    });
-    
+describe('likePost', () => {    
     it('dar like', async () => {
-        hasUserLikedPost.mockResolvedValueOnce(false);
         const legumes = await likePost('abobrinha', 'chuchu');
         expect(legumes).toBe('add like');
 
     });
     it('remove like', async () => {
-        hasUserLikedPost.mockResolvedValueOnce(true);
-        const maisLegumes = await likePost('berinjela', 'beterraba');
+        getDoc.mockResolvedValueOnce({
+            exists: () => true,
+            id: 55485488,
+            data: () => {
+                return {whoLiked: ['id do usuário']};
+            }
+        });        
+        const maisLegumes = await likePost(55485488, 'id do usuário');
         expect(maisLegumes).toBe('remove like');
 
     });
