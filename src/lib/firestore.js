@@ -40,7 +40,6 @@ export const updatePost = async (postId, newData) => {
 export const likePost = async (postId, userId) => {
   const userHasLikedPost = await hasUserLikedPost(postId, userId);
   const docRef = doc(db, 'posts', postId);
-
   if (!userHasLikedPost) {
     await updateDoc(docRef, {
       whoLiked: arrayUnion(userId),
