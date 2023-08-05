@@ -94,14 +94,14 @@ export default () => {
       <div class='nameUser'>
         <p class='userName'>${nameUser}</p>
         <p class='textPost'>${textPost}</p>
-      </div>
-      <div class='icons'>
-      <!-- Botão de like e contador de likes -->
+        <!-- Botão de like e contador de likes -->
       <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
       <div class='icon-post' id='icons-like'>
         <img alt='like icon' class='icon' title="Like" data-like-state="off" src="${likeiconoff}"/>
         <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
       </div>
+      </div>
+      <div class='icons'>
     </button>
     
     </button>
@@ -129,8 +129,8 @@ export default () => {
                 <button class="btn-delete-cancel">Cancelar</button>
               </div>
             </div>` : ''}
+            <p class='dataPost'>${createdAtFormatted}</p>
       </div>
-      <p class='dataPost'>${createdAtFormatted}</p>
       </div>
     </section>`;
 
