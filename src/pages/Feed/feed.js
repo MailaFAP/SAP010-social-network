@@ -105,8 +105,11 @@ export default () => {
     </button>
     
     </button>
+    
+      <p class='dataPost'>${createdAtFormatted}</p>
       <!-- Botão de editar e deletar para uid do usuario autor -->
           ${uidUser === getUserId() ? `
+          <div>
           <button class="btn-post" 
           id="btn-edit-post" 
           data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' title="Editar publicação" src="${editicon}"></button>
@@ -129,7 +132,7 @@ export default () => {
                 <button class="btn-delete-cancel">Cancelar</button>
               </div>
             </div>` : ''}
-            <p class='dataPost'>${createdAtFormatted}</p>
+            </div>
       </div>
       </div>
     </section>`;
