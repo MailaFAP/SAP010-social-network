@@ -90,23 +90,26 @@ export default () => {
     const postElement = document.createElement('div');
     postElement.innerHTML = `
     <section class="post-container">
+    <div></div>
       <div class='nameUser'>
         <p class='userName'>${nameUser}</p>
-        
         <p class='textPost'>${textPost}</p>
-      </div>
-      <div class='icons'>
-      <!-- Botão de like e contador de likes -->
+        <!-- Botão de like e contador de likes -->
       <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
       <div class='icon-post' id='icons-like'>
         <img alt='like icon' class='icon' title="Like" data-like-state="off" src="${likeiconoff}"/>
         <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
       </div>
+      </div>
+      <div class='icons'>
     </button>
     
     </button>
+    
+      <p class='dataPost'>${createdAtFormatted}</p>
       <!-- Botão de editar e deletar para uid do usuario autor -->
           ${uidUser === getUserId() ? `
+          <div>
           <button class="btn-post" 
           id="btn-edit-post" 
           data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' title="Editar publicação" src="${editicon}"></button>
@@ -129,8 +132,9 @@ export default () => {
                 <button class="btn-delete-cancel">Cancelar</button>
               </div>
             </div>` : ''}
+            </div>
       </div>
-      <p class='dataPost'>${createdAtFormatted}</p>
+      </div>
     </section>`;
 
     // LIKE EM POSTS: dar likes em publicações
