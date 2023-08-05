@@ -94,8 +94,6 @@ export default () => {
       )
       .catch((error) => {
         // Lidar com erros durante o cadastro
-        const errorMessage = cadastroContainer.querySelector('#errorMessage');
-        errorMessage.style.display = 'block';
         switch (error.code) {
           case 'auth/missing-email':
             showNotification('Ei, tá incompleto aqui! Preencha o e-mail!', 'attention');

@@ -75,7 +75,20 @@ describe('getUserName', () => {
 
     expect(result).toBe(displayName);
   });
+
+  it('deve retornar "Anônimo" se o usuário não estiver autenticado ou não tiver displayName', () => {
+    const authMock = {
+      currentUser: {}, // Defina currentUser sem displayName ou como undefined
+    };
+    getAuth.mockReturnValue(authMock);
+
+    const result = getUserName();
+
+    expect(result).toBe("Anônimo");
+  });
 });
+
+
 
 describe('userLogout', () => {
   it('deve fazer logout do usuário', () => {
