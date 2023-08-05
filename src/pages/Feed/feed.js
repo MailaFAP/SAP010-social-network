@@ -105,7 +105,6 @@ export default () => {
     </button>
     
     </button>
-    
       <p class='dataPost'>${createdAtFormatted}</p>
       <!-- Botão de editar e deletar para uid do usuario autor -->
           ${uidUser === getUserId() ? `
