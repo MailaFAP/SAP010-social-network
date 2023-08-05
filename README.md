@@ -1,3 +1,89 @@
+# Social Network - Readme 
+
+## 
+**Acesse o projeto:**
+
+[<img alt="WEBSITE" height="50" src="./src/img/readme/logo_contraplano.png">](link)
+
+**Tecnologias utilizadas**
+
+<img alt="Figma" height="45" src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/3000/figma-logo-256.png" /><img alt="git" height="40"  src="https://cdn3.iconfinder.com/data/icons/social-media-2169/24/social_media_social_media_logo_git-256.png" /><img alt="github" height="45"  src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-3/24/github-256.png" /><img alt="HTML" height="50"  src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-html-markup-develop-layout-language-512.png"> <img alt="CSS" height="50" src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-css-style-develop-layout-language-512.png"> <img alt="JS" height="50" src="https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-javascript-software-develop-command-language-256.png">   
+
+## Índice
+
+* [Resumo do projeto](#resumo-do-projeto)
+* [Protótipos](#protótipos)
+* [Histórias de usuário](#histórias-de-usuário)
+* [Testes de Usabilidade](#testes-de-usabilidade)
+* [Objetivos de aprendizagem alcançados](#objetivos-de-aprendizagem-alcançados)
+* [Considerações gerais](#considerações-gerais)
+* [Dupla desenvolvedora](#dupla-desenvolvedora)
+
+***
+
+## Resumo do projeto
+
+Neste projeto construimos uma _rede social_ sobre filmes e séries onde o usuário pode acessar e interagir com outras pessoas. Ao acessar, é possivel criar uma conta, realizar login, acessar o feed com publicações de outros usuários, curtir e/ou descurtir posts, além de criar novos posts sobre o tema.
+
+## Protótipos 
+
+**Baixa fidelidade**
+
+![Prototipo Baixa](./src/img/readme/prototipo_baixa-01.jpg)
+
+**Alta fidelidade - Mobile**
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_1.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_2.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_3.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_4.jpg)
+**Alta fidelidade - Web**
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_5.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_6.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_7.jpg)
+![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_8.jpg)
+
+## Histórias de usuário
+
+Perfis dos usuários:
+
+Usuário 1: Eu como fã de filmes e séries, gostaria de criar uma conta no App para poder ver o que as pessoas estão curtindo assistir.
+
+Usuário 2: Como fã de filmes e séries, tendo uma conta válida no App, quero poder ler comentários de outros usuários para poder escolher melhor o filme que irei ou não assistir.
+
+Usuário 3: Sou um cinéfilo e curto a ideia de fazer pequenas críticas sobre os filmes que assisto. Já tendo uma conta válida no App e quero poder postar comentários no feed para que outros usuários vejam. Também deleto o comentário que fiz, quando for necessário.
+
+Usuário 4: Faço pequenas críticas sobre os filmes que assisto e compartilho comentários na rede social. Além de postar comentários no feed, também edito e deleto quando é necessário. Sempre curto os comentários de outros usuários que chamam mais minha atenção.
+
+
+## Testes de Usabilidade
+
+Comentários sobre o conteúdo, diagramação e funcionalidades:
+
+// COMPLETAR AQUI
+
+
+
+## Objetivos de aprendizagem alcançados
+
+// COMPLETAR AQUI
+
+## Considerações gerais
+
+// COMPLETAR AQUI
+
+** Projeto entregue através do GitHub
+  [Projeto Rede Social](https://pages.github.com/)
+
+## Dupla desenvolvedora
+
+Projeto desenvolvido por [Larissa Velace](https://github.com/), [Maila Ferreira](https://github.com/),  e [Vitória Victor](https://github.com/vitoriavictor)
+
+  -*-*-*-*-
+
+
+
+
+
 # Criando uma Rede Social
 
 ## Índice

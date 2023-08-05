@@ -1,5 +1,5 @@
 import './feed.css';
-import { userLogout, getUserName, getUserId } from '../../lib/authUser.js';
+import { userLogout, getUserName, getUserId, getAppAuth } from '../../lib/authUser.js';
 import { posts, exibAllPosts, deletePost, updatePost, likePost } from '../../lib/firestore.js';
 
 import logocontraplano from '../../img/icon_logo_contraplano.png';
@@ -89,6 +89,7 @@ export default () => {
     const createdAtFormatted = `${createdAtFormattedDate} ~ ${createdAtFormattedTime}`;
     const postElement = document.createElement('div');
     postElement.innerHTML = `
+
     <section class="post-container">
     <div></div>
       <div class='nameUser'>
@@ -117,7 +118,7 @@ export default () => {
             data-post-id='${postId}' data-user-id='${uidUser}'>
             <img alt='delete icon' class='icon' title="Deletar publicação" src="${deleteicon}"></button> 
             <div class="edit-area">
-            <h4 class="edit-title" style="display: none;">Opa! Bora lá editar a publicação?</h4>
+              <h4 class="edit-title" style="display: none;">Opa! Bora lá editar a publicação?</h4>
               <textarea class="edit-textarea" style="display: none;" rows="4" cols="30"></textarea>
               <div class="edit-buttons" style="display: none;">
                 <button class="btn-edit-save">Salvar</button>
@@ -136,10 +137,22 @@ export default () => {
       </div>
     </section>`;
 
+
     // LIKE EM POSTS: dar likes em publicações
     const likeButton = postElement.querySelector('#btn-like-post');
     const likesCounter = postElement.querySelector(`#likes-counter-${postId}`);
     const likeIcon = postElement.querySelector('.icon-post img');
+
+    // verifica usuario logado e se ele deu like no post
+    const currentUser = getAppAuth().currentUser;
+    const userHasLiked = whoLiked.includes(currentUser?.uid);
+
+    //operador ternário para definir o caminho da imagem on off
+    // ícone like on/off
+    const likeIconState = userHasLiked ? 'on' : 'off';
+    const likeIconSrc = likeIconState === 'on' ? likeiconon : likeiconoff;
+    likeIcon.dataset.likeState = likeIconState;
+    likeIcon.src = likeIconSrc;
 
     // Evento de escuta para o botão de like
     likeButton.addEventListener('click', async () => {
@@ -149,10 +162,14 @@ export default () => {
           likesCounter.innerText = parseInt(likesCounter.innerText, 10) + 1;
           likeIcon.dataset.likeState = 'on';
           likeIcon.src = likeiconon;
+          // Armazene o estado do like no localStorage
+          localStorage.setItem(`likeState_${postId}`, 'on');
         } else if (likeResult === 'remove like') {
           likesCounter.innerText = parseInt(likesCounter.innerText, 10) - 1;
           likeIcon.dataset.likeState = 'off';
           likeIcon.src = likeiconoff;
+          // Armazene o estado do like no localStorage
+          localStorage.setItem(`likeState_${postId}`, 'off');
         }
       } catch (error) {
         showNotification('Ops, não rolou o like', 'error');
@@ -163,12 +180,11 @@ export default () => {
     return postElement;
   };
 
-
   //lista de publicações aqui
   const inicioPosts = () => {
     exibAllPosts()
       .then((listaPosts) => {
-        listPosts.innerHTML = ''; // Limpar a lista de posts antes de atualizar
+        listPosts.innerHTML = ''; // limpar a lista de posts
         for (let i = listaPosts.length - 1; i >= 0; i--) {
           const itemPost = createPostElement(
             listaPosts[i].nameUser,
@@ -214,7 +230,6 @@ export default () => {
       }
     }
   });
-
 
   //DELETAR POST: selecionar e deletar comentário feito pelo proprio usuário
   const handlePostListClick = (event) => {
@@ -268,8 +283,6 @@ export default () => {
   };
 
   listPosts.addEventListener('click', handlePostListClick);
-
-
 
   //EDIT POST: editar comentário feito pelo proprio usuário
   const editPostListClick = (event) => {
