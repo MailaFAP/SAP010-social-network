@@ -56,8 +56,8 @@ textarea::placeholder{
 .icons {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end; /* Alinha os ícones verticalmente ao final do container */
-  justify-content: flex-end; /* Alinha os ícones horizontalmente ao final do container */
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 button{
