@@ -11,6 +11,16 @@
   justify-content: space-between;
 }
 
+@media (max-width: 375px) {
+  .editing .post-container {
+    width: auto;
+  }
+
+  .deleting .post-container {
+  
+  }
+}
+
 #listPosts > div{
   display: flex;
   justify-content: center;
@@ -36,13 +46,20 @@ textarea::placeholder{
   margin: 5px;
 }
 
+.date{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .icons{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
 }
- 
+
 button{
   border: none;
   background-color: #64008e;
