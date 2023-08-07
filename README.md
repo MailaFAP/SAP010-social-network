@@ -29,18 +29,23 @@ Neste projeto construimos uma _rede social_ sobre filmes e séries onde o usuár
 
 **Baixa fidelidade**
 
-![Prototipo Baixa](./src/img/readme/prototipo_baixa-01.jpg)
+<img src="./src/img/readme/prototipo_baixa-01.jpg" width="400px">
 
+###
 **Alta fidelidade - Mobile**
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_1.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_2.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_3.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_4.jpg)
+
+<img src="./src/img/readme/Prototipo%20Rede%20Social_1.jpg" width="250px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_2.jpg" width="250px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_3.jpg" width="250px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_4.jpg" width="250px">
+
+
 **Alta fidelidade - Web**
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_5.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_6.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_7.jpg)
-![Prototipo](./src/img/readme/Prototipo%20Rede%20Social_8.jpg)
+
+<img src="./src/img/readme/Prototipo%20Rede%20Social_5.jpg" width="300px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_6.jpg" width="300px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_7.jpg" width="300px">
+<img src="./src/img/readme/Prototipo%20Rede%20Social_8.jpg" width="300px">
 
 ## Histórias de usuário
 
@@ -59,17 +64,67 @@ Usuário 4: Faço pequenas críticas sobre os filmes que assisto e compartilho c
 
 Comentários sobre o conteúdo, diagramação e funcionalidades:
 
-// COMPLETAR AQUI
+*Acessado por navegador, gostei do uso de cores. Gostei da uniformidade arredondada de toda a rede social. Bem intuitivo. Tive acesso facilmente a informação sem problemas no uso.*
 
+*Acessado por celular e navegador. Observei que ainda não há uma página de perfil completa, mas o feed está ótimo e é muito divertido ver os comentários. Sugiro uma busca por nome de filme entre os posts em atualizações futuras do aplicativo.*
+
+*Acessado por celular, a responsividade do feed está ótima. É um app fácil de ser usado e com um tema super legal. Seria bom poder usar tags e hashtags para marcar os temas e poder comentar um post específico. Consegui dar like em tudo que gostei.*
 
 
 ## Objetivos de aprendizagem alcançados
 
-// COMPLETAR AQUI
+- HTML
+    - Uso de HTML semântico
+
+  - CSS
+    - Uso de seletores de CSS
+    - Modelo de caixa (box model): borda, margem, preenchimento
+    - Uso de flexbox em CSS
+    - Uso de CSS Grid Layout
+
+  - Web APIs
+    - Uso de seletores de DOM
+    - Manipulação de eventos de DOM (listeners, propagação, delegação)
+    - Manipulação dinâmica de DOM
+    - Routing (History API, evento hashchange, window.location)
+
+  - JavaScript
+    - Arrays (arranjos)
+    - Objetos (key, value)
+    - Diferenciar entre tipos de dados primitivos e não primitivos
+    - Variáveis (declaração, atribuição, escopo)
+    - Uso de condicionais (if-else, switch, operador ternário, lógica booleana)
+    - Uso de laços (while, for, for..of)
+    - Funções (params, args, return)
+    - Testes unitários (unit tests)
+    - Testes assíncronos
+    - Uso de mocks e espiões
+    - Módulos de ECMAScript (ES modules)
+    - Uso de linter (ESLINT)
+    - Uso de identificadores descritivos (Nomenclatura e Semântica)
+    - Diferença entre expressões (expressions) e declarações (statements)
+    - Callbacks
+    - Promessas
+
+
+  - Controle de Versões (Git e GitHub)
+
+  - Centrado no usuário
+  
+  - Design de produto
+
+  - Pesquisa
+
+  - Firebase
+
+  - Firestore
 
 ## Considerações gerais
 
 // COMPLETAR AQUI
+
+No projeto da Rede Social, que chamamos de Contraplano, o usuário pode criar uma conta de acesso, logar-se com ela, criar, editar, deletar e dar _likes_ em publicações.
+
 
 ** Projeto entregue através do GitHub
   [Projeto Rede Social](https://pages.github.com/)
