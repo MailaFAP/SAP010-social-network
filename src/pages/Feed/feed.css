@@ -7,7 +7,7 @@
   padding: 10px;
   color: #ffffff;
   width: 80%;
-  display: flex;
+  display: block;
   justify-content: space-between;
 }
 
@@ -53,11 +53,11 @@ textarea::placeholder{
   justify-content: space-between;
 }
 
-.icons{
+.icons {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-end; /* Alinha os ícones verticalmente ao final do container */
+  justify-content: flex-end; /* Alinha os ícones horizontalmente ao final do container */
 }
 
 button{
@@ -189,9 +189,13 @@ a{
 }
 
 /* Area de confirmação*/
-.delete-area{
+.delete-buttons{
   font-style: italic;
-  color: #ff7700;
+  color: #ffffff;
+  background-color: #ff7700a4;
+  border-radius: 20px;
+  border: #ff7700 solid 3px;
+  padding: 5px;
 }
 
 /* Notificação */

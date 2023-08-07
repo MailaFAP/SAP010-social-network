@@ -92,36 +92,39 @@ export default () => {
 
     <section class="post-container">
     <div></div>
-      <div class='nameUser'>
-        <p class='userName'>${nameUser}</p>
-        <p class='textPost'>${textPost}</p>
-        <!-- Botão de like e contador de likes -->
-        <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
-          <div class='icon-post' id='icons-like'>
-            <img alt='like icon' class='icon' title="Like" data-like-state="off" src="${likeiconoff}"/>
-            <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
-          </div>
-        </button>
+      <div>
+        <div class='nameUser'>
+          <p class='userName'>${nameUser}</p>
+          <p class='textPost'>${textPost}</p>
+          <!-- Botão de like e contador de likes -->
+          <button type='button' class='icons-post' id='btn-like-post' data-post-id='${postId}'>
+            <div class='icon-post' id='icons-like'>
+              <img alt='like icon' class='icon' title="Like" data-like-state="off" src="${likeiconoff}"/>
+              <span id="likes-counter-${postId}">${whoLiked.length}</span> likes
+            </div>
+          </button>
+        </div>
+
+        <div class='date'>
+          <p class='dataPost'>${createdAtFormatted}</p>
+        </div>
       </div>
-
-    <div class='date'>
-      <p class='dataPost'>${createdAtFormatted}</p>
-    </div>
-
     <!-- Botão de editar e deletar para uid do usuario autor -->
-    <div class='icons'>
-      ${uidUser === getUserId() ? `
-      <div class="box-delete-edit">
-        <button class="btn-post" 
-        id="btn-edit-post" 
-        data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' title="Editar publicação" src="${editicon}">
-        </button>
+      <div class='icons'>
+        ${uidUser === getUserId() ? `
+        <div class="box-delete-edit">
+          <button class="btn-post" 
+          id="btn-edit-post" 
+          data-remove="postId" data-post-id='${postId}' data-user-id='${uidUser}'><img alt='edit icon' class='icon' title="Editar publicação" src="${editicon}">
+          </button>
 
-        <button class="btn-post" 
-          id="btn-delete-post" 
-          data-post-id='${postId}' data-user-id='${uidUser}'>
-          <img alt='delete icon' class='icon' title="Deletar publicação" src="${deleteicon}">
-        </button>
+          <button class="btn-post" 
+            id="btn-delete-post" 
+            data-post-id='${postId}' data-user-id='${uidUser}'>
+            <img alt='delete icon' class='icon' title="Deletar publicação" src="${deleteicon}">
+          </button>
+
+        </div>
 
         <div class="edit-area">
           <h4 class="edit-title" style="display: none;">Opa! Bora lá editar a publicação?</h4>
@@ -129,21 +132,19 @@ export default () => {
           <div class="edit-buttons" style="display: none;">
             <button class="btn-edit-save">Salvar</button>
             <button class="btn-edit-cancel">Cancelar</button>
-          </div>
         </div>
+      </div>
 
-        <div class="delete-area">
-          <div class="delete-buttons" style="display: none;">
-            <h4>Ei! Quer excluir sua publicação?</h4>
-            <button class="btn-delete-confirm">Confirmar</button>
-            <button class="btn-delete-cancel">Cancelar</button>
-          </div>
+      <div class="delete-area">
+        <div class="delete-buttons" style="display: none;">
+          <h4>Ei! Quer excluir sua publicação?</h4>
+          <button class="btn-delete-confirm">Confirmar</button>
+          <button class="btn-delete-cancel">Cancelar</button>
         </div>
+      </div>
+      </div>` : ''}
 
       </div>
-    </div>` : ''}
-
-    </div>
     </section>`;
 
 
@@ -244,44 +245,49 @@ export default () => {
   const handlePostListClick = (event) => {
     const target = event.target;
     const deleteButton = target.closest('#btn-delete-post');
-
+  
     if (deleteButton) {
       const postId = deleteButton.getAttribute('data-post-id');
       const uidUser = deleteButton.getAttribute('data-user-id');
       const postElement = deleteButton.closest('.post-container');
-      //so testando retorno do uid do user no console
-      console.log(getUserId(), uidUser);
-
+  
       if (uidUser === getUserId()) {
         const toggleElementDisplay = (element, displayValue) => {
           element.style.display = displayValue;
         };
-
+  
         const deleteButtons = postElement.querySelector('.delete-buttons');
         const btnDeleteConfirm = postElement.querySelector('.btn-delete-confirm');
         const btnDeleteCancel = postElement.querySelector('.btn-delete-cancel');
-
+  
         if (postElement.classList.contains('deleting')) {
           toggleElementDisplay(deleteButtons, 'none');
-        } else {
+          postElement.classList.remove('deleting'); 
 
+        } else {
           toggleElementDisplay(deleteButtons, 'block');
+          postElement.classList.add('deleting');
+  
           // botão confirmar delete
           btnDeleteConfirm.addEventListener('click', () => {
             deletePost(postId)
               .then(() => {
-                target.closest('.post-container').remove();
+                postElement.remove();
                 showNotification('Prontinho! Seu post excluído!', 'success');
               })
               .catch((error) => {
                 showNotification('Erro ao excluir o post, tente novamente.', 'error');
                 console.error(error);
               });
+              
+            toggleElementDisplay(deleteButtons, 'none');
+            postElement.classList.remove('deleting');
           });
-
-          // Evento para o botão "Cancelar"
+  
+          // botão "cancelar"
           btnDeleteCancel.addEventListener('click', () => {
             toggleElementDisplay(deleteButtons, 'none');
+            postElement.classList.remove('deleting'); // Remova a classe 'deleting'
             showNotification('O post não foi excluído, tá?', 'attention');
           });
         }

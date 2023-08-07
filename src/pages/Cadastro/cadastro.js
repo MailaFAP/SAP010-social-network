@@ -5,6 +5,7 @@ import { updateProfile } from 'firebase/auth';
 import usericon from '../../img/icons/icones-user1.svg';
 import emailicon from '../../img/icons/icones-email.svg';
 import passwordicon from '../../img/icons/icones-password.svg';
+import logo from '../../img/icon_logo_contraplano.png';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
@@ -18,7 +19,7 @@ export default () => {
   const cadastroContainer = document.createElement('div');
   const templateCadastro = `<div id="loginBackground"></div><div> 
   <header>
-    <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
+    <picture><img class="logo" src="${logo}"></picture>
   </header>
   <div id="notification" class="notification hidden"></div>
   <div>
