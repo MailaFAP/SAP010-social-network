@@ -7,8 +7,18 @@
   padding: 10px;
   color: #ffffff;
   width: 80%;
-  display: flex;
+  display: block;
   justify-content: space-between;
+}
+
+@media (max-width: 375px) {
+  .editing .post-container {
+    width: auto;
+  }
+
+  .deleting .post-container {
+  
+  }
 }
 
 #listPosts > div{
@@ -36,13 +46,20 @@ textarea::placeholder{
   margin: 5px;
 }
 
-.icons{
+.date{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
 }
- 
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
 button{
   border: none;
   background-color: #64008e;
@@ -172,9 +189,13 @@ a{
 }
 
 /* Area de confirmação*/
-.delete-area{
+.delete-buttons{
   font-style: italic;
-  color: #ff7700;
+  color: #ffffff;
+  background-color: #ff7700a4;
+  border-radius: 20px;
+  border: #ff7700 solid 3px;
+  padding: 5px;
 }
 
 /* Notificação */

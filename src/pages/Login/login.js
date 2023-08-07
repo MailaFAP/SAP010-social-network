@@ -4,6 +4,7 @@ import { loginEmail, loginGoogle } from "../../lib/authUser.js";
 import googleicon from '../../img/icons/icones-google.svg';
 import emailicon from '../../img/icons/icones-email.svg';
 import passwordicon from '../../img/icons/icones-password.svg';
+import logo from '../../img/icon_logo_contraplano.png';
 
 export default () => {
   const oldStyles = document.getElementsByTagName("link");
@@ -18,7 +19,7 @@ export default () => {
   const templateLogin = `<div id="loginBackground"></div>
   <div>
   <header>
-    <picture><img class="logo" src="./img/logo_contraplano.png"></picture>
+    <picture><img class="logo" src="${logo}"></picture>
   </header>
     <div id="notification" class="notification hidden"></div>
     <div>
