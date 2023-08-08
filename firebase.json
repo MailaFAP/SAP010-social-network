@@ -9,5 +9,9 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "firestore": {
+    "rules": "filmeredesocial",
+    "indexes": "firestore.indexes.json"
   }
 }
