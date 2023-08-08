@@ -3,7 +3,7 @@
 ## 
 **Acesse o projeto:**
 
-[<img alt="WEBSITE" height="50" src="./src/img/readme/logo_contraplano.png">](https://filmeredesocial.firebaseapp.com/)
+[<img alt="WEBSITE" height="50" src="./src/img/readme/logo_contraplano.png">](https://contraplanoredesocial.web.app/)
 
 **Tecnologias utilizadas**
 
